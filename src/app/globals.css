@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #f04e45;
+  --primary-light: #f69ea1;
+  --primary-dark: #d62628;
+  --secondary: #333333;
+  --accent: #67c6e3;
+  --background: #ffffff;
+  --foreground: #171717;
+  --text-light: #666666;
+  --border-light: #eeeeee;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-medium;
+}
+
+/* Button styles */
+.btn {
+  @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-base font-medium transition-all duration-300;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  @apply hover:opacity-90 hover:translate-y-[-1px] shadow-sm;
+}
+
+.btn-outline {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  @apply hover:bg-red-50;
+}
+
+/* Header styles */
+.header {
+  @apply py-4 fixed top-0 left-0 right-0 z-50 transition-all duration-300;
+}
+
+.header-scrolled {
+  @apply bg-white/95 backdrop-blur-sm shadow-sm;
+  @apply py-2;
+}
+
+/* Hero section */
+.hero-section {
+  @apply min-h-screen relative flex items-center;
+}
+
+.hero-overlay {
+  @apply absolute inset-0 z-10;
+}
+
+.hero-content {
+  @apply relative z-20 text-white;
+}
+
+/* Text shadow utilities */
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.text-shadow-md {
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+}
+
+.text-shadow-lg {
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.text-shadow-xl {
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Shadow glow effect for hover states */
+.shadow-glow {
+  box-shadow: 0 0 10px rgba(240, 78, 69, 0.5);
+}
+
+/* Animation utilities */
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  /* Improve touch targets */
+  a, button, [role="button"] {
+    @apply min-h-[44px] min-w-[44px];
+  }
+
+  /* Improve text readability */
+  p {
+    @apply text-base leading-relaxed;
+  }
+
+  /* Improve section spacing */
+  section {
+    @apply py-12;
+  }
+
+  /* Fix potential overflow issues */
+  body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  /* Adjust header for mobile */
+  .header {
+    @apply py-3;
+  }
+
+  /* Optimize form inputs for touch */
+  input, select, textarea {
+    @apply text-base py-3 px-4;
+  }
+}
