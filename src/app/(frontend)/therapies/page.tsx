@@ -8,6 +8,15 @@ export const metadata = {
   title: "Our Therapies | Chiron Therapeutics",
   description: "Explore Chiron Therapeutics&apos; innovative stem cell therapies for cartilage regeneration and wound healing, powered by our revolutionary SIST technology.",
 };
+/**
+ * Fetch the 'Therapies' collection data from PayloadCMS 
+ */
+const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/therapies`);
+const json = await res.json();
+const section = json?.docs?.[0];
+const banner = section?.banner;
+const ourApproach = section?.ourApproach;
+const therapies = section?.therapies;
 
 export default function TherapiesPage() {
   return (
@@ -19,8 +28,8 @@ export default function TherapiesPage() {
           {/* Background Image with blur effect */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/experiment.png"
-              alt="Stem cell therapy research"
+              src={banner?.image?.url}
+              alt={banner?.image?.alt}
               fill
               style={{ objectFit: "cover", objectPosition: "center" }}
               priority
@@ -32,10 +41,10 @@ export default function TherapiesPage() {
           
           <div className="container relative z-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-shadow-lg mb-4">
-              Our Innovative Therapies
+              {banner?.title}
             </h1>
             <p className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
-              Transforming regenerative medicine through breakthrough stem cell technologies
+              {banner?.description}
             </p>
           </div>
         </section>
@@ -44,22 +53,19 @@ export default function TherapiesPage() {
         <section className="py-16 md:py-24 bg-white">
           <div className="container">
             <div className="max-w-4xl mx-auto text-center">
-              <SectionTitle 
-                subtitle="OUR APPROACH" 
-                title="Revolutionary Stem Cell Therapies"
+              <SectionTitle
+                subtitle="OUR APPROACH"
+                title={ourApproach?.title}
                 accent={true}
               />
               <div className="mt-8 max-w-3xl mx-auto">
                 <p className="text-xl text-text-light leading-relaxed text-center mb-8">
-                At Chiron Therapeutics, we&apos;re developing cutting-edge autograft stem cell therapies 
-                powered by our proprietary Suspension-Induced Stem Cell Transition (SIST) technology. 
-                Our pipelines focus on transforming patient cells into targeted therapies for cartilage 
-                regeneration and wound healing.
-              </p>
+                  {ourApproach?.description}
+                </p>
               </div>
               <div className="flex justify-center">
-                <Button href="#cartilage-regeneration" variant="outline" className="mr-4">Cartilage Regeneration</Button>
-                <Button href="#wound-healing" variant="outline">Wound Healing</Button>
+                <Button href="#cartilage-regeneration" variant="outline" className="mr-4">{ourApproach?.primaryCTA}</Button>
+                <Button href="#wound-healing" variant="outline">{ourApproach?.secondaryCTA}</Button>
               </div>
             </div>
           </div>
@@ -71,19 +77,22 @@ export default function TherapiesPage() {
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">Pipeline 1 – Cartilage Regeneration</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                    {therapies[0]?.title}
+                  </h2>
                   <p className="text-lg text-text-light mb-6">
-                    Using our unique SIST technology, we can reprogram human skin fibroblasts to generate 
-                    cartilage-producing chondrocytes. This innovative approach offers a promising solution for 
-                    treating joint injuries and degenerative conditions.
+                    {therapies[0]?.primaryDescription}
                   </p>
                   <p className="text-lg text-text-light mb-6">
-                    Our preclinical data demonstrates successful transformation of skin cells into functional 
-                    chondrocytes, providing a more accessible and less invasive alternative to traditional methods.
+                    {therapies[0]?.secondaryDescription}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                    <Button href="/#contact-section" size="lg">Contact Us</Button>
-                    <Button href="#wound-healing" variant="outline" size="lg">Next Therapy</Button>
+                    <Button href="/#contact-section" size="lg">
+                      {therapies[0]?.primaryCTA}
+                    </Button>
+                    <Button href="#wound-healing" variant="outline" size="lg">
+                      {therapies[0]?.secondaryCTA}
+                    </Button>
                   </div>
                 </div>
                 
@@ -92,24 +101,23 @@ export default function TherapiesPage() {
                   <div className="bg-white p-4 rounded-xl shadow-md">
                     <div className="relative h-64 w-full">
                       <Image
-                        src="/assets/pipeline_1.png" 
-                        alt="SIST-derived Chondrocytes - Alcian blue staining"
+                        src={therapies[0]?.image1?.url}
+                        alt={therapies[0]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
                       />
                     </div>
                     <div className="relative h-64 w-full mb-4">
                       <Image
-                        src="/assets/pipeline3.png" 
-                        alt="SIST-derived Chondrocytes - Immunostaining"
+                        src={therapies[0]?.image2?.url}
+                        alt={therapies[0]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
                       />
                     </div>
                     <p className="text-sm text-text-light text-center">
-                    Generating human cartilage-producing cells (chondrocytes) from human skin fibroblasts 
-                    confirmed by Alcian blue staining (top) and Immunostaining (bottom).
-                  </p>
+                      {therapies[0]?.caption}
+                    </p>
                   </div>
                   {/* Shared caption for both images */}
                   
@@ -128,34 +136,35 @@ export default function TherapiesPage() {
                   <div className="bg-white p-4 rounded-xl shadow-md">
                     <div className="relative h-64 w-full mb-4">
                       <Image
-                        src="/assets/pipeline2.1.png" 
-                        alt="SIST-derived spheroids for wound healing"
+                        src={therapies[1]?.image1?.url}
+                        alt={therapies[1]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
                       />
                     </div>
                     <p className="text-sm text-text-light text-center">
-                      Using the SIST platform, we can derive spheroids from dermal fibroblasts (top) and 
-                      keratinocytes (bottom) that express mesenchymal stem cell (MSC)- and keratinocyte 
-                      stem cell (KSC)-like properties that are favorable for wound healing in a clinical setting.
+                      {therapies[1]?.caption}
                     </p>
                   </div>
                 </div>
                 
                 <div className="order-1 lg:order-2">
-                  <h2 className="text-3xl md:text-4xl font-bold mb-6">Pipeline 2 – Enhancing Wound Healing</h2>
+                  <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                    {therapies[1]?.title}
+                  </h2>
                   <p className="text-lg text-text-light mb-6">
-                    Our second pipeline focuses on accelerating wound healing through innovative cell therapy. 
-                    The SIST platform enables us to develop cells with properties ideal for treating complex 
-                    wounds, including burn injuries and chronic ulcers.
+                    {therapies[1]?.primaryDescription}
                   </p>
                   <p className="text-lg text-text-light mb-6">
-                    These cells provide an alternate safe and efficiently scalable source for wound healing 
-                    therapy that can overcome the challenges currently presented with the use of MSCs and KSCs.
+                    {therapies[1]?.secondaryDescription}
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                    <Button href="/#contact-section" size="lg">Contact Us</Button>
-                    <Button href="#pipeline-1" variant="outline" size="lg">Previous Therapy</Button>
+                    <Button href="/#contact-section" size="lg">
+                      {therapies[1]?.primaryCTA}
+                    </Button>
+                    <Button href="#pipeline-1" variant="outline" size="lg">
+                      {therapies[1]?.secondaryCTA}
+                    </Button>
                   </div>
                 </div>
               </div>
