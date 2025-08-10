@@ -5,11 +5,18 @@ import HistorySection from "@/components/sections/about/HistorySection";
 import PipelineSection from "@/components/sections/about/PipelineSection";
 import TeamSection from "@/components/sections/about/TeamSection";
 import Image from "next/image";
+import { About } from "@/payload-types";
+import { RichText } from '@payloadcms/richtext-lexical/react';
 
 export const metadata = {
   title: "About Us | Chiron Therapeutics",
   description: "Learn about Chiron Therapeutics' mission, history, innovative stem cell technology, and our expert team driving the future of regenerative medicine.",
 };
+
+const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/about`);
+const json = await res.json();
+const aboutPage: About = json?.docs?.[0];
+const banner = aboutPage?.banner;
 
 export default function AboutPage() {
   return (
@@ -21,8 +28,8 @@ export default function AboutPage() {
           {/* Background Image with blur effect */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/hero_image2.png"
-              alt="Stem cell research"
+              src={banner?.backgroundImage?.url ?? ""}
+              alt={banner?.backgroundImage?.alt}
               fill
               style={{ objectFit: "cover", objectPosition: "center" }}
               priority
@@ -34,19 +41,20 @@ export default function AboutPage() {
           
           <div className="container relative z-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-shadow-lg mb-4">
-              About Chiron Therapeutics
+              {banner?.title}
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
-              Pioneering the future of regenerative medicine through innovative stem cell technology
-            </p>
+            <div className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
+              <RichText 
+              data={banner?.description} />
+            </div>
           </div>
         </section>
         
         {/* Main Content Sections */}
-        <MissionSection />
-        <HistorySection />
-        <PipelineSection />
-        <TeamSection layout="three-column" />
+        <MissionSection data={aboutPage?.ourMission} />
+        <HistorySection data={aboutPage?.ourStory} />
+        <PipelineSection data={aboutPage?.therapeuticsIntro} />
+        <TeamSection layout="three-column" data={aboutPage?.ourPeople} />
       </main>
       <Footer />
     </>

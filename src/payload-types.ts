@@ -6,6 +6,9 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import { RichTextAdapter, UploadCollectionSlug } from "payload";
+
 /**
  * Supported timezones in IANA format.
  *
@@ -291,6 +294,81 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Auth {
   [k: string]: unknown;
+}
+
+export interface Therapies {
+  banner: {
+    title: string;
+    description: SerializedEditorState;
+    image: Media;
+  };
+  ourApproach: {
+    title: string;
+    description: SerializedEditorState;
+    primaryCTA: string;
+    secondaryCTA: string;
+  };
+  therapies: {
+    title: string
+    description: SerializedEditorState;
+    primaryCTA: string;
+    secondaryCTA: string;
+    image1: Media;
+    image2: Media;
+    caption: string;
+  }[];
+}
+export interface About {
+  banner: {
+    title: string;
+    description: SerializedEditorState;
+    backgroundImage: Media;
+  };
+  ourMission: {
+    title: string;
+    description: SerializedEditorState;
+    missionValues: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+    }[];
+    SISTProcess: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+      imageCaption: string;
+    };
+  };
+  ourStory: {
+    title: string;
+    description: SerializedEditorState;
+  };
+  therapeuticsIntro: {
+    title: string;
+    description: SerializedEditorState;
+    image: Media;
+    clinicalDevelopmentPrograms: {
+      title: string;
+      description: SerializedEditorState;
+      pipelines: {
+        icon: Media;
+        title: string;
+        description: SerializedEditorState;
+      }[]
+    };
+    closingText: string;
+  };
+  ourPeople: {
+    title: string;
+    description: SerializedEditorState;
+    peoples: {
+      name: string;
+      title: string;
+      image: Media;
+      linkedinURL: string,
+      bio: string;
+    }[];
+  }
 }
 
 

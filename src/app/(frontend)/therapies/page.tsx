@@ -3,6 +3,8 @@ import Footer from "@/components/ui/Footer";
 import Image from "next/image";
 import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
+import { Therapies } from "@/payload-types";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 
 export const metadata = {
   title: "Our Therapies | Chiron Therapeutics",
@@ -13,7 +15,7 @@ export const metadata = {
  */
 const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/therapies`);
 const json = await res.json();
-const section = json?.docs?.[0];
+const section: Therapies = json?.docs?.[0];
 const banner = section?.banner;
 const ourApproach = section?.ourApproach;
 const therapies = section?.therapies;
@@ -28,7 +30,7 @@ export default function TherapiesPage() {
           {/* Background Image with blur effect */}
           <div className="absolute inset-0 z-0">
             <Image
-              src={banner?.image?.url}
+              src={banner?.image?.url ?? ""}
               alt={banner?.image?.alt}
               fill
               style={{ objectFit: "cover", objectPosition: "center" }}
@@ -43,9 +45,9 @@ export default function TherapiesPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-shadow-lg mb-4">
               {banner?.title}
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
-              {banner?.description}
-            </p>
+            <div className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
+              <RichText data={banner?.description}/>
+            </div>
           </div>
         </section>
         
@@ -59,9 +61,9 @@ export default function TherapiesPage() {
                 accent={true}
               />
               <div className="mt-8 max-w-3xl mx-auto">
-                <p className="text-xl text-text-light leading-relaxed text-center mb-8">
-                  {ourApproach?.description}
-                </p>
+                <div className="text-xl text-text-light leading-relaxed text-center mb-8">
+                  <RichText data={ourApproach?.description}/>
+                </div>
               </div>
               <div className="flex justify-center">
                 <Button href="#cartilage-regeneration" variant="outline" className="mr-4">{ourApproach?.primaryCTA}</Button>
@@ -80,12 +82,9 @@ export default function TherapiesPage() {
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">
                     {therapies[0]?.title}
                   </h2>
-                  <p className="text-lg text-text-light mb-6">
-                    {therapies[0]?.primaryDescription}
-                  </p>
-                  <p className="text-lg text-text-light mb-6">
-                    {therapies[0]?.secondaryDescription}
-                  </p>
+                  <div className="text-lg text-text-light mb-6">
+                    <RichText data={therapies[0]?.description}/>
+                  </div>
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
                     <Button href="/#contact-section" size="lg">
                       {therapies[0]?.primaryCTA}
@@ -101,7 +100,7 @@ export default function TherapiesPage() {
                   <div className="bg-white p-4 rounded-xl shadow-md">
                     <div className="relative h-64 w-full">
                       <Image
-                        src={therapies[0]?.image1?.url}
+                        src={therapies[0]?.image1?.url ?? ""}
                         alt={therapies[0]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
@@ -109,7 +108,7 @@ export default function TherapiesPage() {
                     </div>
                     <div className="relative h-64 w-full mb-4">
                       <Image
-                        src={therapies[0]?.image2?.url}
+                        src={therapies[0]?.image2?.url ?? ""}
                         alt={therapies[0]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
@@ -136,7 +135,7 @@ export default function TherapiesPage() {
                   <div className="bg-white p-4 rounded-xl shadow-md">
                     <div className="relative h-64 w-full mb-4">
                       <Image
-                        src={therapies[1]?.image1?.url}
+                        src={therapies[1]?.image1?.url ?? ""}
                         alt={therapies[1]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
@@ -152,12 +151,9 @@ export default function TherapiesPage() {
                   <h2 className="text-3xl md:text-4xl font-bold mb-6">
                     {therapies[1]?.title}
                   </h2>
-                  <p className="text-lg text-text-light mb-6">
-                    {therapies[1]?.primaryDescription}
-                  </p>
-                  <p className="text-lg text-text-light mb-6">
-                    {therapies[1]?.secondaryDescription}
-                  </p>
+                  <div className="text-lg text-text-light mb-6">
+                    <RichText data={therapies[1]?.description}/>
+                  </div>
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
                     <Button href="/#contact-section" size="lg">
                       {therapies[1]?.primaryCTA}

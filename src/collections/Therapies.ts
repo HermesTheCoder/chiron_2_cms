@@ -24,7 +24,7 @@ const Therapies: CollectionConfig = {
         {
           name: "description",
           label: "Description",
-          type: "textarea",
+          type: "richText",
           required: true,
         },
         {
@@ -51,7 +51,7 @@ const Therapies: CollectionConfig = {
         {
           name: "description",
           label: "Description",
-          type: "textarea",
+          type: "richText",
           required: true,
         },
         {
@@ -80,15 +80,9 @@ const Therapies: CollectionConfig = {
           required: true,
         },
         {
-          name: "primaryDescription",
-          label: "Primary Description",
-          type: "textarea",
-          required: true,
-        },
-        {
-          name: "secondaryDescription",
-          label: "Secondary Description",
-          type: "textarea",
+          name: "description",
+          label: "Description",
+          type: "richText",
           required: true,
         },
         {
