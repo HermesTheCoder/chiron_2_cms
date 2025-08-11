@@ -54,7 +54,7 @@ export default function AboutPage() {
         <MissionSection data={aboutPage?.ourMission} />
         <HistorySection data={aboutPage?.ourStory} />
         <PipelineSection data={aboutPage?.therapeuticsIntro} />
-        <TeamSection layout="three-column" data={aboutPage?.ourPeople} />
+        <TeamSection layout="three-column" />
       </main>
       <Footer />
     </>

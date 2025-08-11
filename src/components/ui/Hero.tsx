@@ -3,8 +3,28 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { RichText } from '@payloadcms/richtext-lexical/react';
+import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import { Media } from "@/payload-types";
 
-export default function Hero() {
+type HeroSectionProps = {
+  data: {
+    title: string,
+    description: SerializedEditorState;
+    backgroundImage: Media;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+  }
+}
+
+
+export default function Hero({data}: HeroSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -20,8 +40,8 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/assets/hero_image1.png"
-          alt="Stem cell therapy"
+          src={data?.backgroundImage?.url ?? ""}
+          alt={data?.backgroundImage?.alt}
           fill
           style={{ objectFit: "cover", objectPosition: "center" }}
           priority
@@ -38,16 +58,16 @@ export default function Hero() {
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            <span className="text-shadow-lg">Redefining Stem Cell Based Therapy</span>
+            <span className="text-shadow-lg">{data?.title}</span>
           </h1>
           
-          <p 
+          <div
             className={`text-xl md:text-2xl mb-10 text-white/90 max-w-2xl leading-relaxed drop-shadow-md transition-all delay-300 duration-1000 ${
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            Our technology addresses one of the biggest challenges in regenerative medicine
-          </p>
+            <RichText data={data?.description} />
+          </div>
           
           <div 
             className={`flex flex-col sm:flex-row gap-6 transition-all delay-500 duration-1000 ${
@@ -55,17 +75,17 @@ export default function Hero() {
             }`}
           >
             <Link 
-              href="/therapies"
+              href={data?.primaryCTA?.link}
               className="btn btn-primary text-lg px-8 py-4 shadow-lg hover:shadow-xl hover:translate-y-[-2px] hover:scale-[1.02]"
             >
-              Explore Our Therapies
+              {data?.primaryCTA?.text}
             </Link>
             
             <Link 
-              href="/about"
+              href={data?.secondaryCTA?.link}
               className="btn bg-white/10 backdrop-blur-sm border-2 border-white/70 text-white hover:bg-white/20 text-lg px-8 py-4 transition-all duration-300"
             >
-              Learn More
+              {data?.secondaryCTA?.text}
             </Link>
           </div>
         </div>

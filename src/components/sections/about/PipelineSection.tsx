@@ -97,8 +97,8 @@ export default function PipelineSection({data}: PipelineSectionProps) {
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 {
-                  data?.clinicalDevelopmentPrograms?.pipelines?.map((pipeline) => (
-                    <div className="bg-white p-6 rounded-xl shadow-md">
+                  data?.clinicalDevelopmentPrograms?.pipelines?.map((pipeline, idx) => (
+                    <div key={idx} className="bg-white p-6 rounded-xl shadow-md">
                       <div className="w-12 h-12 rounded-full bg-[#F8B359]/20 flex items-center justify-center mb-4">
                         <img src={pipeline?.icon?.url ?? ""} alt={pipeline?.icon?.alt} />
                       </div>
