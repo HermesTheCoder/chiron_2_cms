@@ -6,6 +6,9 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import { RichTextAdapter, UploadCollectionSlug } from "payload";
+
 /**
  * Supported timezones in IANA format.
  *
@@ -293,6 +296,140 @@ export interface Auth {
   [k: string]: unknown;
 }
 
+export interface Home {
+  banner: {
+    title: string;
+    description: SerializedEditorState;
+    backgroundImage: Media;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+  };
+  advantages: {
+    title: string;
+    description: SerializedEditorState;
+    features: {
+      title: string;
+      description: SerializedEditorState;
+      icon: Media;
+    }[];
+  }
+  therapySection: {
+    title: string;
+    description: SerializedEditorState;
+    therapies: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+      link: string;
+    }[];
+  };
+}
+
+export interface Therapies {
+  banner: {
+    title: string;
+    description: SerializedEditorState;
+    image: Media;
+  };
+  ourApproach: {
+    title: string;
+    description: SerializedEditorState;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+  };
+  therapies: {
+    title: string
+    description: SerializedEditorState;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+    image1: Media;
+    image2: Media;
+    caption: string;
+  }[];
+}
+export interface About {
+  banner: {
+    title: string;
+    description: SerializedEditorState;
+    backgroundImage: Media;
+  };
+  ourMission: {
+    title: string;
+    description: SerializedEditorState;
+    missionValues: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+    }[];
+    SISTProcess: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+      imageCaption: string;
+    };
+  };
+  ourStory: {
+    title: string;
+    description: SerializedEditorState;
+  };
+  therapeuticsIntro: {
+    title: string;
+    description: SerializedEditorState;
+    image: Media;
+    clinicalDevelopmentPrograms: {
+      title: string;
+      description: SerializedEditorState;
+      pipelines: {
+        icon: Media;
+        title: string;
+        description: SerializedEditorState;
+      }[]
+    };
+    closingText: string;
+  };
+}
+export interface LeadershipTeam {
+  leadershipTeam: {
+    title: string;
+    description: SerializedEditorState;
+    members: {
+      name: string;
+      title: string;
+      image: Media;
+      linkedinURL: string;
+      bio: string;
+    }[];
+  }
+}
+export interface Footer {
+  footerLinks: {
+    label: string;
+    link: string;
+  }[];
+  footerData: {
+    address: string;
+    number: string;
+    mail: string;
+  }
+}
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

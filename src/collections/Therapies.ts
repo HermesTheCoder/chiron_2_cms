@@ -24,7 +24,7 @@ const Therapies: CollectionConfig = {
         {
           name: "description",
           label: "Description",
-          type: "textarea",
+          type: "richText",
           required: true,
         },
         {
@@ -51,20 +51,46 @@ const Therapies: CollectionConfig = {
         {
           name: "description",
           label: "Description",
-          type: "textarea",
+          type: "richText",
           required: true,
         },
         {
           name: "primaryCTA",
           label: "Primary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
         {
           name: "secondaryCTA",
           label: "Secondary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
       ],
     },
@@ -80,28 +106,48 @@ const Therapies: CollectionConfig = {
           required: true,
         },
         {
-          name: "primaryDescription",
-          label: "Primary Description",
-          type: "textarea",
-          required: true,
-        },
-        {
-          name: "secondaryDescription",
-          label: "Secondary Description",
-          type: "textarea",
+          name: "description",
+          label: "Description",
+          type: "richText",
           required: true,
         },
         {
           name: "primaryCTA",
           label: "Primary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
         {
           name: "secondaryCTA",
           label: "Secondary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
         {
           name: "image1",

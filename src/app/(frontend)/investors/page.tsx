@@ -743,8 +743,6 @@ export default function InvestorsPage() {
           layout="three-column"
           maxMembers={3}
           subtitle="LEADERSHIP"
-          title="Meet Our Team"
-          description="Our expert team combines world-class scientific expertise with proven business leadership to drive innovation and create value for our investors."
         />
         
         <ContactSection />

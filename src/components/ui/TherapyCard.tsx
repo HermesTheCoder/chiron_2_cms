@@ -1,10 +1,13 @@
+import { Media } from '@/payload-types';
+import { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 interface TherapyCardProps {
   title: string;
-  description: string;
-  imageSrc: string;
+  description: SerializedEditorState;
+  imageSrc: Media;
   link: string;
   imagePosition?: 'left' | 'right';
   accent?: boolean;
@@ -23,8 +26,8 @@ export default function TherapyCard({
       <div className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
         <div className="relative w-full md:w-1/2 h-64 md:h-auto">
           <Image
-            src={imageSrc}
-            alt={title}
+            src={imageSrc?.url ?? ""}
+            alt={imageSrc?.alt}
             fill
             style={{ objectFit: 'cover' }}
             className="transition-transform duration-700 hover:scale-105"
@@ -34,7 +37,7 @@ export default function TherapyCard({
         <div className="w-full md:w-1/2 p-6 md:p-8 lg:p-10 flex flex-col justify-between">
           <div>
             <h3 className="text-xl md:text-2xl font-bold mb-4 text-foreground">{title}</h3>
-            <p className="text-text-light mb-6 leading-relaxed">{description}</p>
+            <div className="text-text-light mb-6 leading-relaxed"><RichText data={description}/></div>
           </div>
           
           <Link
