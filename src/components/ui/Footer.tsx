@@ -1,29 +1,35 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-interface FooterLink {
-  label: string;
-  href: string;
-}
-
-interface FooterLinkGroup {
-  title: string;
-  links: FooterLink[];
+type FooterData = {
+  footerLinks: {
+    label: string;
+    link: string;
+  }[];
+  footerData: {
+    address: string;
+    number: string;
+    mail: string;
+  }
 }
 
 export default function Footer() {
-  const linkGroups: FooterLinkGroup[] = [
-    {
-      title: 'Company',
-      links: [
-        { label: 'About Us', href: '/about' },
-        { label: 'Our Therapies', href: '/therapies' },
-        { label: 'Investors', href: '/investors' }
-      ]
-    }
-  ];
+  
+  const [footerData, setFooterData] = useState<FooterData>();
+
+  useEffect(() => {
+  
+      const fetchData = async () => {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/globals/footer`);
+        const data = await res.json();
+        setFooterData(data);
+      };
+  
+    fetchData();
+    }, []);
 
   return (
     <footer className="bg-gray-900 dark:bg-gray-900 relative overflow-hidden pt-16 pb-10 border-t border-gray-800">
@@ -101,23 +107,20 @@ export default function Footer() {
           
           {/* Link Groups */}
           <div className="md:col-span-3 lg:col-span-3 md:ml-auto">
-            {linkGroups.map((group) => (
-              <div key={group.title}>
-                <h3 className="text-lg font-bold mb-5 text-white">{group.title}</h3>
+            
+                <h3 className="text-lg font-bold mb-5 text-white">Contact</h3>
                 <ul className="space-y-3">
-                  {group.links.map((link) => (
-                    <li key={link.label}>
+                  {footerData?.footerLinks?.map((footerLink) => (
+                    <li key={footerLink?.label}>
                       <Link 
-                        href={link.href}
+                        href={footerLink?.link}
                         className="text-gray-400 hover:text-primary transition-colors"
                       >
-                        {link.label}
+                        {footerLink?.label}
                       </Link>
                     </li>
                   ))}
                 </ul>
-              </div>
-            ))}
           </div>
           
           {/* Contact Information */}
@@ -126,8 +129,7 @@ export default function Footer() {
             <address className="not-italic text-gray-300 space-y-3">
               <div className="flex items-start justify-end">
                 <div className="text-right mr-3">
-                  <p>123 Innovation Drive</p>
-                  <p>Palo Alto, CA 94304, USA</p>
+                  <p>{footerData?.footerData?.address}</p>
                 </div>
                 <svg className="w-5 h-5 text-primary mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -136,7 +138,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start justify-end">
                 <div className="text-right mr-3">
-                  <p>+1 (650) 555-0000</p>
+                  <p>{footerData?.footerData?.number}</p>
                 </div>
                 <svg className="w-5 h-5 text-primary mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -144,7 +146,7 @@ export default function Footer() {
               </div>
               <div className="flex items-start justify-end">
                 <div className="text-right mr-3">
-                  <a href="mailto:info@chirontherapeutics.com" className="text-primary hover:text-white transition-colors">info@chirontherapeutics.com</a>
+                  <a href={"mailto:" + footerData?.footerData?.mail} className="text-primary hover:text-white transition-colors">{footerData?.footerData?.mail}</a>
                 </div>
                 <svg className="w-5 h-5 text-primary mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

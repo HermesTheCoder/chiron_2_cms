@@ -10,6 +10,9 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import Therapies from './collections/Therapies'
 import About from './collections/About'
+import Home from './collections/Home'
+import LeadershipTeam from './globals/LeadershipTeam'
+import Footer from './globals/Footer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -21,7 +24,8 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Therapies, About],
+  collections: [Users, Media, Therapies, About, Home],
+  globals: [LeadershipTeam, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -66,8 +66,8 @@ export default function TherapiesPage() {
                 </div>
               </div>
               <div className="flex justify-center">
-                <Button href="#cartilage-regeneration" variant="outline" className="mr-4">{ourApproach?.primaryCTA}</Button>
-                <Button href="#wound-healing" variant="outline">{ourApproach?.secondaryCTA}</Button>
+                <Button href={ourApproach?.primaryCTA?.link} variant="outline" className="mr-4">{ourApproach?.primaryCTA?.text}</Button>
+                <Button href={ourApproach?.secondaryCTA?.link} variant="outline">{ourApproach?.secondaryCTA?.text}</Button>
               </div>
             </div>
           </div>
@@ -86,11 +86,11 @@ export default function TherapiesPage() {
                     <RichText data={therapies[0]?.description}/>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                    <Button href="/#contact-section" size="lg">
-                      {therapies[0]?.primaryCTA}
+                    <Button href={therapies[0]?.primaryCTA?.link} size="lg">
+                      {therapies[0]?.primaryCTA?.text}
                     </Button>
-                    <Button href="#wound-healing" variant="outline" size="lg">
-                      {therapies[0]?.secondaryCTA}
+                    <Button href={therapies[0]?.secondaryCTA?.link} variant="outline" size="lg">
+                      {therapies[0]?.secondaryCTA?.text}
                     </Button>
                   </div>
                 </div>
@@ -155,11 +155,11 @@ export default function TherapiesPage() {
                     <RichText data={therapies[1]?.description}/>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                    <Button href="/#contact-section" size="lg">
-                      {therapies[1]?.primaryCTA}
+                    <Button href={therapies[1]?.primaryCTA?.link} size="lg">
+                      {therapies[1]?.primaryCTA?.text}
                     </Button>
-                    <Button href="#pipeline-1" variant="outline" size="lg">
-                      {therapies[1]?.secondaryCTA}
+                    <Button href={therapies[1]?.secondaryCTA?.link} variant="outline" size="lg">
+                      {therapies[1]?.secondaryCTA?.text}
                     </Button>
                   </div>
                 </div>

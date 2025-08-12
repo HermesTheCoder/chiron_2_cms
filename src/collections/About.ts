@@ -1,5 +1,4 @@
 import { CollectionConfig } from "payload";
-import { tr } from "payload/i18n/tr";
 
 /**
  * About Us page content schema
@@ -217,65 +216,6 @@ const About: CollectionConfig = {
         },
       ],
     },
-    {
-        name: "ourPeople",
-        label: "Our People",
-        type: "group",
-        required: true,
-        fields: [
-            {
-            name: "title",
-            label: "Title",
-            type: "text",
-            required: true,
-            },
-            {
-            name: "description",
-            label: "Description",
-            type: "richText",
-            required: true,
-            },
-            {
-            name: "peoples",
-            label: "Peoples",
-            type: "array",
-            required: true,
-            fields: [
-                {
-                    name: "name",
-                    label: "Name",
-                    type: 'text',
-                    required: true
-                },
-                {
-                    name: "title",
-                    label: "Title",
-                    type: 'text',
-                    required: true
-                },
-                {
-                    name: "image",
-                    label: "Image",
-                    type: 'upload',
-                    relationTo: "media", 
-                    required: true
-                },
-                {
-                    name: "linkedinURL",
-                    label: "Linkedin URL",
-                    type: 'text',
-                    required: true
-                },
-                {
-                    name: "bio",
-                    label: "Bio",
-                    type: 'textarea',
-                    required: true
-                },
-            ]
-            },
-        ]
-    }
   ],
 };
 

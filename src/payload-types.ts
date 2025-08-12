@@ -296,6 +296,41 @@ export interface Auth {
   [k: string]: unknown;
 }
 
+export interface Home {
+  banner: {
+    title: string;
+    description: SerializedEditorState;
+    backgroundImage: Media;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+  };
+  advantages: {
+    title: string;
+    description: SerializedEditorState;
+    features: {
+      title: string;
+      description: SerializedEditorState;
+      icon: Media;
+    }[];
+  }
+  therapySection: {
+    title: string;
+    description: SerializedEditorState;
+    therapies: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+      link: string;
+    }[];
+  };
+}
+
 export interface Therapies {
   banner: {
     title: string;
@@ -305,14 +340,26 @@ export interface Therapies {
   ourApproach: {
     title: string;
     description: SerializedEditorState;
-    primaryCTA: string;
-    secondaryCTA: string;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
   };
   therapies: {
     title: string
     description: SerializedEditorState;
-    primaryCTA: string;
-    secondaryCTA: string;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
     image1: Media;
     image2: Media;
     caption: string;
@@ -358,19 +405,31 @@ export interface About {
     };
     closingText: string;
   };
-  ourPeople: {
+}
+export interface LeadershipTeam {
+  leadershipTeam: {
     title: string;
     description: SerializedEditorState;
-    peoples: {
+    members: {
       name: string;
       title: string;
       image: Media;
-      linkedinURL: string,
+      linkedinURL: string;
       bio: string;
     }[];
   }
 }
-
+export interface Footer {
+  footerLinks: {
+    label: string;
+    link: string;
+  }[];
+  footerData: {
+    address: string;
+    number: string;
+    mail: string;
+  }
+}
 
 declare module 'payload' {
   export interface GeneratedTypes extends Config {}

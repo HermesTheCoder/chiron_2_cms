@@ -57,14 +57,40 @@ const Therapies: CollectionConfig = {
         {
           name: "primaryCTA",
           label: "Primary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
         {
           name: "secondaryCTA",
           label: "Secondary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
       ],
     },
@@ -88,14 +114,40 @@ const Therapies: CollectionConfig = {
         {
           name: "primaryCTA",
           label: "Primary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
         {
           name: "secondaryCTA",
           label: "Secondary CTA",
-          type: "text",
+          type: "group",
           required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
         },
         {
           name: "image1",
