@@ -6,13 +6,15 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 
-import { Users } from './collections/Users'
-import { Media } from './collections/Media'
-import Therapies from './collections/Therapies'
-import About from './collections/About'
-import Home from './collections/Home'
-import LeadershipTeam from './globals/LeadershipTeam'
-import Footer from './globals/Footer'
+
+import { Users } from './collections/Users.ts'
+import { Media } from './collections/Media.ts'
+import Therapies from './collections/Therapies.ts'
+import About from './collections/About.ts'
+import Home from './collections/Home.ts'
+import LeadershipTeam from './globals/LeadershipTeam.ts'
+import Footer from './globals/Footer.ts'
+import Investors from './collections/Investors.ts'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -24,7 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Therapies, About, Home],
+  collections: [Users, Media, Therapies, About, Home, Investors],
   globals: [LeadershipTeam, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

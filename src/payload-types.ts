@@ -419,6 +419,127 @@ export interface LeadershipTeam {
     }[];
   }
 }
+
+export interface InvestorsPage {
+  banner: {
+    title: string;
+    description: SerializedEditorState; 
+    backgroundImage: Media; 
+    CTA: {
+      text: string;
+      link?: string;
+    };
+  };
+  investmentOpportunity: {
+    title: string;
+    description: SerializedEditorState;
+    cardData: SerializedEditorState;
+    marketNeeds: {
+      title: string;
+      image: Media;
+      pointers: {
+        title: string;
+        description: SerializedEditorState;
+      }[];
+    };
+  };
+  invest: {
+    title: string;
+    description: SerializedEditorState;
+    cards: {
+      icon: Media;
+      title: string;
+      description: SerializedEditorState;
+    }[];
+  };
+  marketAnalysis: {
+    title: string;
+    description: SerializedEditorState;
+    primaryCard: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+      feature: {
+        title: string;
+        text: string;
+      }[];
+    };
+    secondaryCard: {
+      icon: Media;
+      title: string;
+      point: {
+        text: string;
+      }[];
+    }[];
+  };
+  technologyAndInnovation: {
+    title: string;
+    description: SerializedEditorState;
+    card: {
+      title: string;
+      description: SerializedEditorState;
+      image: Media;
+    }[];
+    card2: {
+      title: string;
+      description: SerializedEditorState;
+      features: {
+        icon: Media;
+        title: string;
+        description: SerializedEditorState;
+      }[];
+    };
+  };
+  corning: {
+    title: string;
+    cards: {
+      title: string;
+      description: SerializedEditorState;
+    }[];
+  };
+  clinicalApplications: {
+    title: string;
+    description: SerializedEditorState;
+    card: {
+      title: string;
+      description: SerializedEditorState;
+      icon: Media;
+      image: Media;
+      stage: string;
+      filing: string;
+    }[];
+    regulatoryStrategy: {
+      title: string;
+      description: SerializedEditorState;
+      points: {
+        text: string;
+      }[];
+    };
+  };
+  companyProfile: {
+    title: string;
+    description: SerializedEditorState;
+    mission: {
+      title: string;
+      description: string;
+    };
+    mission2: {
+      title: string;
+      description: string;
+    };
+    companyHighlights: {
+      title: string;
+      highlights: {
+        highlight: string;
+      }[];
+    };
+    CTA: {
+      text: string;
+      link?: string;
+    };
+  };
+}
+
 export interface Footer {
   footerLinks: {
     label: string;
