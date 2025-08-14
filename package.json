@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "dev:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload/payload.config.ts nodemon"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "^3.50.0",

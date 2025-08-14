@@ -5,11 +5,26 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import Button from "@/components/ui/Button";
 import ContactSection from "@/components/sections/ContactSection";
 import TeamSection from "@/components/sections/about/TeamSection";
+import { type InvestorsPage } from "@/payload-types";
+import { RichText } from '@payloadcms/richtext-lexical/react';
 
 export const metadata = {
   title: "Investors | Chiron Therapeutics",
   description: "Investment opportunities in Chiron Therapeutics. Learn about our revolutionary stem cell technology, market potential, and connect with our team.",
 };
+
+const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/investors`);
+const json = await res.json();
+const investorPage: InvestorsPage = json?.docs?.[0];
+const banner = investorPage.banner;
+const investmentOpportunity = investorPage.investmentOpportunity;
+const invest = investorPage.invest;
+const marketAnalysis = investorPage.marketAnalysis;
+const technologyAndInnovation = investorPage.technologyAndInnovation;
+const corning = investorPage.corning;
+const clinicalApplications = investorPage.clinicalApplications;
+const companyProfile = investorPage.companyProfile;
+
 
 export default function InvestorsPage() {
   return (
@@ -21,8 +36,8 @@ export default function InvestorsPage() {
           {/* Background Image with blur effect */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/hero_image1.png"
-              alt="Investor opportunities"
+              src={banner.backgroundImage.url ?? ""}
+              alt={banner.backgroundImage.alt}
               fill
               style={{ objectFit: "cover", objectPosition: "center" }}
               priority
@@ -34,13 +49,13 @@ export default function InvestorsPage() {
           
           <div className="container relative z-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-shadow-lg mb-4">
-              Investor Relations
+              {banner.title}
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
-              Join us in revolutionizing regenerative medicine with breakthrough stem cell technologies
-            </p>
+            <div className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
+              <RichText data={banner.description} />
+            </div>
             <div className="mt-8">
-              <Button href="#contact-section" size="lg">Connect With Us</Button>
+              <Button href={banner.CTA.link} size="lg">{banner.CTA.text}</Button>
             </div>
           </div>
         </section>
@@ -51,28 +66,20 @@ export default function InvestorsPage() {
             <div className="max-w-6xl mx-auto">
               <SectionTitle 
                 subtitle="INVESTMENT OPPORTUNITY" 
-                title="Join the Regenerative Revolution with Chiron Therapeutics"
+                title={investmentOpportunity.title}
                 accent={true}
                 alignment="center"
               />
               
               <div className="mt-12 max-w-4xl mx-auto">
-                <p className="text-lg text-text-light leading-relaxed mb-6">
-                  Chiron Therapeutics presents a transformative investment opportunity at the forefront of regenerative medicine, where validated science meets vast commercial potential.
-                </p>
-                
-                <p className="text-lg text-text-light leading-relaxed mb-6">
-                  While iPSC-based therapies continue to face critical challenges in safety, consistency, and scalability, Chiron&apos;s proprietary SIST technology offers a practical and clinically viable alternative.
-                </p>
-                
-                <p className="text-lg text-text-light leading-relaxed mb-6">
-                  By harnessing the innate regenerative capacity of adult stem cells, SIST bridges the gap between scientific promise and therapeutic reality.
-                </p>
+                <div className="text-lg text-text-light leading-relaxed mb-6">
+                  <RichText data={investmentOpportunity.description} />
+                </div>
                 
                 <div className="bg-primary/5 p-6 rounded-xl border-l-4 border-primary my-8">
-                  <p className="text-lg font-medium">
-                    With the global regenerative medicine market projected to reach $48.83 billion by 2034 (Precedence Research), Chiron is uniquely positioned to capture significant market share—delivering both near-term impact and long-term value.
-                  </p>
+                  <div className="text-lg font-medium">
+                    <RichText data={investmentOpportunity.cardData}/>
+                  </div>
                 </div>
               </div>
               
@@ -80,8 +87,8 @@ export default function InvestorsPage() {
                 <div>
                   <div className="relative h-96 w-full rounded-xl overflow-hidden shadow-xl">
                     <Image
-                      src="/assets/SIST-v3.png"
-                      alt="SIST Technology"
+                      src={investmentOpportunity.marketNeeds?.image.url ?? ""}
+                      alt={investmentOpportunity.marketNeeds?.image.alt}
                       fill
                       style={{ objectFit: "contain", objectPosition: "center" }}
                       className="rounded-xl p-4 bg-white"
@@ -90,40 +97,19 @@ export default function InvestorsPage() {
                 </div>
                 
                 <div className="align-start">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-6">Addressing Critical Market Needs</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-6">{investmentOpportunity.marketNeeds?.title}</h3>
                   <ul className="space-y-4">
-                    <li className="flex items-start">
+                    {investmentOpportunity.marketNeeds?.pointers.map((point, idx) => (
+                      <li key={idx} className="flex items-start">
                       <svg className="w-6 h-6 text-primary mr-2 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      <span className="text-text-light">
-                        <strong className="text-gray-900">Safety First:</strong> Non-genetic reprogramming eliminates tumor risks associated with iPSCs
+                      <span className="text-text-light flex items-center gap-1">
+                        <strong className="text-gray-900">{point.title}</strong>:
+                        <RichText data={point.description} />
                       </span>
                     </li>
-                    <li className="flex items-start">
-                      <svg className="w-6 h-6 text-primary mr-2 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span className="text-text-light">
-                        <strong className="text-gray-900">Scalability:</strong> 100X expansion of adult stem cells enables commercial-scale production
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-6 h-6 text-primary mr-2 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span className="text-text-light">
-                        <strong className="text-gray-900">Clinical Efficiency:</strong> Accelerated regulatory pathway compared to genetically modified cells
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-6 h-6 text-primary mr-2 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                      <span className="text-text-light">
-                        <strong className="text-gray-900">Cost-Effectiveness:</strong> Lower manufacturing costs translate to improved profit margins
-                      </span>
-                    </li>
+                    ))}
                   </ul>
                 </div>
               </div>
@@ -136,68 +122,46 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="WHY INVEST" 
-              title="Why Invest in Chiron Therapeutics"
+              title={invest.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-lg text-text-light">
-                Our unique approach to stem cell technology offers compelling advantages for investors seeking both scientific innovation and commercial potential.
-              </p>
+              <div className="text-lg text-text-light">
+                <RichText data={invest.description} />
+              </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {/* Advantage 1 - Market Fit */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300">
-                <div className="p-6 border-b border-gray-100">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
+            {/* Advantages */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"> 
+              {
+                invest.cards.map((card, idx: number) => (
+                  <div
+                    key={idx}
+                    className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300"
+                  >
+                    <div className="p-6 border-b border-gray-100">
+                      <div className="relative w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 overflow-hidden">
+                        <Image
+                          src={card.icon.url ?? ""}
+                          alt={card.icon.alt || ""}
+                          fill
+                          priority
+                          quality={90}
+                          className="object-contain"
+                        />
+                      </div>
+                      <h3 className="text-xl font-bold mb-2">{card.title}</h3>
+                    </div>
+                    <div className="px-6 py-4">
+                      <div className="text-text-light">
+                        <RichText data={card.description} />
+                      </div>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Market Fit</h3>
-                </div>
-                <div className="px-6 py-4">
-                  <p className="text-text-light">
-                    $12.35 billion market (2023) is projected to grow at a CAGR of 11.2% by 2030, positioning Chiron to lead the adult stem cells market.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Advantage 2 - De-Risked */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300">
-                <div className="p-6 border-b border-gray-100">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">De-Risked</h3>
-                </div>
-                <div className="px-6 py-4">
-                  <p className="text-text-light">
-                    Corning sponsorship and SIST technology avoids safety concerns plaguing stem cell therapy, providing a faster path into the clinic.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Advantage 3 - Upside */}
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300">
-                <div className="p-6 border-b border-gray-100">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Upside</h3>
-                </div>
-                <div className="px-6 py-4">
-                  <p className="text-text-light">
-                    Ontario offers a 30% cost advantage compared to the U.S., and coupled with proven data-driven performance, projects lean growth and maximizes potential returns for investors.
-                  </p>
-                </div>
-              </div>
+                ))
+              }
             </div>
           </div>
         </section>
@@ -207,116 +171,69 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="MARKET ANALYSIS" 
-              title="Strategic Market Advantage"
+              title={marketAnalysis.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-lg text-text-light">
-                The rapidly growing adult stem cells market presents a substantial opportunity for Chiron&apos;s innovative technologies and treatments.
-              </p>
+              <div className="text-lg text-text-light">
+                <RichText data={marketAnalysis.description}/>
+              </div>
             </div>
             
             <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-8 mb-12">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-4">Adult Stem Cells Market Growth</h3>
-                <p className="text-text-light mb-6">
-                  The adult stem cells market is projected to reach $12.4 billion by 2023, with steady growth to 2030 at a CAGR of 11.2%. This trend highlights the increasing demand for regenerative medicine solutions like those offered by Chiron Therapeutics.
-                </p>
+                <h3 className="text-2xl font-bold mb-4">{marketAnalysis.primaryCard.title}</h3>
+                <div className="text-text-light mb-6">
+                  <RichText data={marketAnalysis.primaryCard.description} />
+                </div>
               </div>
               <div className="relative h-[500px] w-full rounded-lg overflow-hidden">
                 <Image
-                  src="/assets/stretagy.png"
-                  alt="Adult Stem Cells Market Size Chart showing growth from 2020 to 2030"
+                  src={marketAnalysis.primaryCard.image.url ?? ""}
+                  alt={marketAnalysis.primaryCard.image.alt}
                   fill
                   style={{ objectFit: "contain" }}
                   className="rounded-lg"
                 />
               </div>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="text-xl font-semibold text-primary">11.2%</h4>
-                  <p className="text-sm text-text-light">Global Market CAGR, 2024-2030</p>
-                </div>
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="text-xl font-semibold text-primary">Autologous Focus</h4>
-                  <p className="text-sm text-text-light">Fastest growing segment in the market</p>
-                </div>
+                {
+                  marketAnalysis.primaryCard.feature.map((feature, idx: number) => (
+                    <div key={idx} className="bg-gray-50 p-4 rounded-lg">
+                      <h4 className="text-xl font-semibold text-primary">{feature.title}</h4>
+                      <p className="text-sm text-text-light">{feature.text}</p>
+                    </div>
+                  ))
+                }
               </div>
             </div>
             
             <div className="max-w-5xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-white p-6 rounded-xl shadow-md">
-                  <h3 className="text-xl font-bold mb-4 flex items-center">
-                    <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                    </svg>
-                    Key Market Drivers
-                  </h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Increasing prevalence of chronic diseases</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Growing aging population worldwide</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Advancements in stem cell technology</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Rising demand for regenerative treatments</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div className="bg-white p-6 rounded-xl shadow-md">
-                  <h3 className="text-xl font-bold mb-4 flex items-center">
-                    <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                    Chiron&apos;s Competitive Edge
-                  </h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>SIST technology enables 100X higher yield than competitors</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Focused on autologous market segment with highest growth</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Strategic partnership with Corning provides manufacturing edge</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span>Lower cost base in Ontario creates sustainable margins</span>
-                    </li>
-                  </ul>
-                </div>
+                {
+                  marketAnalysis.secondaryCard.map((card, cardIdx) => (
+                    <div key={cardIdx} className="bg-white p-6 rounded-xl shadow-md">
+                      <h3 className="text-xl font-bold mb-4 flex items-center">
+                        <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        {card.title}
+                      </h3>
+                      <ul className="space-y-3">
+                        {card.point.map((point, pointIdx) => (
+                          <li key={`card-${cardIdx}-feature-${pointIdx}`} className="flex items-start">
+                            <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span>{point.text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))
+                }
               </div>
             </div>
           </div>
@@ -327,28 +244,29 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="TECHNOLOGY & INNOVATION" 
-              title="Our Licensed Therapies"
+              title={technologyAndInnovation.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-lg text-text-light">
-                There is a huge gap between the availability and clinical demand for Adult Stem Cells in the Regenerative Medicine market.
-              </p>
+              <div className="text-lg text-text-light">
+                <RichText data={technologyAndInnovation.description} />
+              </div>
             </div>
             
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
-                {/* First Chart - MSC Gap */}
-                <div className="bg-white rounded-xl shadow-lg p-8">
-                  <h3 className="text-2xl font-bold mb-4">Adult Stem Cell Scarcity vs Growing Demand</h3>
-                  <p className="text-text-light mb-6">
-                    Current methods can only provide a fraction of the adult stem cells needed for clinical applications, with a 10,000x gap between supply and demand.
-                  </p>
+                {/* Charts - Tech & Innovation*/}
+                {technologyAndInnovation.card.map((card, idx) => (
+                  <div key={idx} className="bg-white rounded-xl shadow-lg p-8">
+                  <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
+                  <div className="text-text-light mb-6">
+                    <RichText data={card.description} />
+                  </div>
                   <div className="relative h-[300px] w-full rounded-lg overflow-hidden">
                     <Image
-                      src="/assets/adult_stem_cell.png"
+                      src={card.image.url ?? ""}
                       alt="Chart showing 10,000x gap between available MSCs and projected clinical demand"
                       fill
                       style={{ objectFit: "contain" }}
@@ -356,57 +274,31 @@ export default function InvestorsPage() {
                     />
                   </div>
                 </div>
-                
-                {/* Second Chart - SIST 100x yield */}
-                <div className="bg-white rounded-xl shadow-lg p-8">
-                  <h3 className="text-2xl font-bold mb-4">SIST Technology Yield Advantage</h3>
-                  <p className="text-text-light mb-6">
-                    Our technology delivers a 100x increase in stem cell yield compared to traditional isolation methods, dramatically improving manufacturing economics.
-                  </p>
-                  <div className="relative h-[300px] w-full rounded-lg overflow-hidden">
-                    <Image
-                      src="/assets/sist_tech.png"
-                      alt="Chart showing 100x yield increase with SIST technology compared to traditional MSC isolation"
-                      fill
-                      style={{ objectFit: "contain" }}
-                      className="rounded-lg"
-                    />
-                  </div>
-                </div>
+                ))}
               </div>
               
               {/* SIST Breakthrough Box */}
               <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-8 shadow-lg mb-16">
                 <div className="max-w-4xl mx-auto">
-                  <h3 className="text-2xl font-bold mb-4 text-center">SIST™ Breakthrough: IP-Licensed Innovation with Unmatched Potential</h3>
-                  <p className="text-lg text-text-light leading-relaxed mb-6 text-center">
-                    Chiron&apos;s SIST™ technology offers a clinically validated, transgene-free solution to the expansion of adult stem cells—100x more efficient than traditional methods—while avoiding the complex FDA hurdles of iPSC-based therapies.
-                  </p>
+                  <h3 className="text-2xl font-bold mb-4 text-center">{technologyAndInnovation.card2.title}</h3>
+                  <div className="text-lg text-text-light leading-relaxed mb-6 text-center">
+                    <RichText data={technologyAndInnovation.card2.description}/>
+                  </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                    <div className="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
+                    {technologyAndInnovation.card2.features.map((feature, idx) => (
+                      <div key={idx} className="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
                       <h4 className="font-bold text-lg mb-3 flex items-center">
                         <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
-                        Safety Advantage
+                        {feature.title}
                       </h4>
-                      <p className="text-text-light">
-                        Avoids iPSC FDA hurdles (e.g., tumorigenicity risks delaying approvals) by using transgene-free approach with adult stem cells
-                      </p>
+                      <div className="text-text-light">
+                        <RichText data={feature.description} />
+                      </div>
                     </div>
-                    
-                    <div className="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
-                      <h4 className="font-bold text-lg mb-3 flex items-center">
-                        <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                        </svg>
-                        Production Efficiency
-                      </h4>
-                      <p className="text-text-light">
-                        100x expansion of adult stem cells enables cost-effective manufacturing at scale, addressing the massive gap in clinical demand
-                      </p>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -420,31 +312,19 @@ export default function InvestorsPage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold">Strategic Collaboration with Corning</h3>
+                    <h3 className="text-2xl font-bold">{corning.title}</h3>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                  <div className="border-l-4 border-primary p-4 bg-gray-50 rounded-r-lg">
-                    <h4 className="font-bold mb-2">Sponsorship</h4>
-                    <p className="text-sm text-text-light">
-                      Corning will be providing support via the supply of Elplasia plates for adult stem cell manufacturing.
-                    </p>
+                  {corning.cards.map((card, idx) => (
+                    <div key={idx} className="border-l-4 border-primary p-4 bg-gray-50 rounded-r-lg">
+                    <h4 className="font-bold mb-2">{card.title}</h4>
+                    <div className="text-sm text-text-light">
+                      <RichText data={card.description}/>
+                    </div>
                   </div>
-                  
-                  <div className="border-l-4 border-primary p-4 bg-gray-50 rounded-r-lg">
-                    <h4 className="font-bold mb-2">Elplasia Plates</h4>
-                    <p className="text-sm text-text-light">
-                      Enables us to optimize the scale up of SIST based production of adult stem cells. They cost-effectively drive Chiron&apos;s ability to manufacture adult stem cells at scale.
-                    </p>
-                  </div>
-                  
-                  <div className="border-l-4 border-primary p-4 bg-gray-50 rounded-r-lg">
-                    <h4 className="font-bold mb-2">Regulatory Impact</h4>
-                    <p className="text-sm text-text-light">
-                      Critical for preclinical data generation and eventual FDA/Health Canada filings.
-                    </p>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -456,72 +336,46 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="CLINICAL APPLICATIONS" 
-              title="Our Pipeline Focus"
+              title={clinicalApplications.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
-              <p className="text-lg text-text-light">
-                Chiron is advancing adult stem cell therapies with our proprietary SIST technology platform to address significant unmet medical needs.
-              </p>
+              <div className="text-lg text-text-light">
+                <RichText data={clinicalApplications.description} />
+              </div>
             </div>
             
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                {/* Cartilage Regeneration */}
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
+                {clinicalApplications.card.map((card, idx) => (
+                  <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
                   <div className="h-48 bg-gradient-to-r from-primary/30 to-primary/10 relative p-8">
-                    <div className="absolute inset-0 bg-[url('/assets/hero_image2.png')] bg-cover bg-center"></div>
+                    <div className={`absolute inset-0 bg-[url(${card.image.url})] bg-cover bg-center`}></div>
                     <div className="relative z-10">
                       <div className="w-14 h-14 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4">
                         <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                       </div>
-                      <h3 className="text-2xl font-bold text-white">Cartilage Regeneration</h3>
+                      <h3 className="text-2xl font-bold text-white">{card.title}</h3>
                     </div>
                   </div>
                   <div className="p-8">
-                    <p className="text-text-light mb-6">
-                      Articular cartilage injuries affect up to 36% of athletes, while osteoarthritis impacts over 53 million adults in the U.S. alone—creating an urgent need for advanced, less invasive regenerative therapies. Chiron&apos;s SIST technology offers a game-changing solution, positioning us to meet this unmet clinical need with a scalable and effective regenerative approach.
-                    </p>
+                    <div className="text-text-light mb-6">
+                      <RichText data={card.description} />
+                    </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <div className="w-3 h-3 rounded-full bg-primary mr-2"></div>
-                        <span className="text-sm font-medium">Preclinical Stage</span>
+                        <span className="text-sm font-medium">{card.stage}</span>
                       </div>
-                      <span className="text-sm text-primary font-semibold">IND Filing: 2025</span>
+                      <span className="text-sm text-primary font-semibold">{card.filing}</span>
                     </div>
                   </div>
                 </div>
-                
-                {/* Wound Healing */}
-                <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                  <div className="h-48 bg-gradient-to-r from-accent/30 to-accent/10 relative p-8">
-                    <div className="absolute inset-0  bg-[url('/assets/experiment.png')] bg-cover bg-center"></div>
-                    <div className="relative z-10">
-                      <div className="w-14 h-14 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4">
-                        <svg className="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                      </div>
-                      <h3 className="text-2xl font-bold text-white">Enhancing Wound Healing</h3>
-                    </div>
-                  </div>
-                  <div className="p-8">
-                    <p className="text-text-light mb-6">
-                      Chiron&apos;s SIST™ platform enables the rapid, scalable generation of human keratinocyte stem cells, providing a highly effective, minimally invasive method for wound healing, offering a significant improvement over traditional treatments.
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <div className="w-3 h-3 rounded-full bg-accent mr-2"></div>
-                        <span className="text-sm font-medium">Preclinical Stage</span>
-                      </div>
-                      <span className="text-sm text-accent font-semibold">IND Filing: 2026</span>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
               
               <div className="bg-gray-50 rounded-xl p-8 shadow-md">
@@ -529,37 +383,23 @@ export default function InvestorsPage() {
                   <svg className="w-6 h-6 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <h3 className="text-xl font-bold">Regulatory Strategy</h3>
+                  <h3 className="text-xl font-bold">{clinicalApplications.regulatoryStrategy.title}</h3>
                 </div>
                 <div className="pl-8">
-                  <p className="text-text-light mb-4">
-                    Our adult stem cell approach benefits from a clearer regulatory pathway compared to genetic modification technologies:
-                  </p>
+                  <div className="text-text-light mb-4">
+                    <RichText data={clinicalApplications.regulatoryStrategy.description} />
+                  </div>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm">No need for extensive genetic safety studies</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm">Established precedent with multiple adult stem cell approvals</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm">Significant reduction in tumorigenic risk</span>
-                    </li>
-                    <li className="flex items-start">
-                      <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className="text-sm">Streamlined clinical trial design</span>
-                    </li>
+                    {
+                      clinicalApplications.regulatoryStrategy.points.map((point, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm">{point.text}</span>
+                        </li>
+                      ))
+                    }
                   </ul>
                 </div>
               </div>
@@ -655,31 +495,28 @@ export default function InvestorsPage() {
             <div className="max-w-6xl mx-auto">
               <SectionTitle 
                 subtitle="COMPANY PROFILE" 
-                title="Who We Are"
+                title={companyProfile.title}
                 accent={true}
                 alignment="center"
               />
               
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-12">
                 <div className="lg:col-span-3">
-                  <p className="text-lg text-text-light leading-relaxed mb-6">
-                    Chiron Therapeutics is a preclinical-stage biotech company based in Ontario, Canada, pioneering the next generation of regenerative medicine. We&apos;re redefining what&apos;s possible by making stem cell therapies safer, more scalable, and clinically practical.
-                  </p>
+                  <div className="text-lg text-text-light leading-relaxed mb-6">
+                    <RichText data={companyProfile.description} />
+                  </div>
                   
                   <div className="border-l-4 border-primary pl-6 my-8">
-                    <h3 className="text-xl font-bold mb-3">Our Mission</h3>
+                    <h3 className="text-xl font-bold mb-3">{companyProfile.mission.title}</h3>
                     <p className="text-lg text-text-light leading-relaxed">
-                      To transform lives through safe, accessible, and scalable regenerative therapies—empowering real-world impact for patients worldwide.
+                      {companyProfile.mission.description}
                     </p>
                   </div>
                   
                   <div className="mt-8">
-                    <h3 className="text-xl font-bold mb-3">Our Breakthrough Technology</h3>
+                    <h3 className="text-xl font-bold mb-3">{companyProfile.mission2.title}</h3>
                     <p className="text-lg text-text-light leading-relaxed mb-4">
-                      Our proprietary SIST platform is a transgene-free, IP-licensed innovation that enables the robust expansion of adult stem cells without genetic modification.
-                    </p>
-                    <p className="text-lg text-text-light leading-relaxed">
-                      In partnership with Corning, we leverage Elplasia™ 3D culture technology to enhance scalability and accelerate clinical readiness.
+                      {companyProfile.mission2.description}
                     </p>
                   </div>
                 </div>
@@ -691,39 +528,19 @@ export default function InvestorsPage() {
                         <svg className="w-5 h-5 text-primary mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                         </svg>
-                        Company Highlights
+                        {companyProfile.companyHighlights.title}
                       </h3>
                       <ul className="space-y-3">
-                        <li className="flex items-start">
-                          <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span>Founded in 2021</span>
-                        </li>
-                        <li className="flex items-start">
-                          <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span>Headquartered in Ontario, Canada</span>
-                        </li>
-                        <li className="flex items-start">
-                          <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span>IP-licensed SIST technology</span>
-                        </li>
-                        <li className="flex items-start">
-                          <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span>Strategic partnership with Corning</span>
-                        </li>
-                        <li className="flex items-start">
-                          <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
-                          <span className="text-sm">Expert team with combined 50+ years in stem cell research</span>
-                        </li>
+                        {
+                          companyProfile.companyHighlights.highlights.map((highlight, idx) => (
+                            <li key={idx} className="flex items-start">
+                              <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                              <span>{highlight.highlight}</span>
+                            </li>
+                          ))
+                        }
                       </ul>
                     </div>
                     <div className="text-center">

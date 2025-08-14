@@ -126,7 +126,7 @@ export default function AdvantagesSection({ data }: AdvantagesSectionProps) {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {advantages.map((advantage, idx: Number) => (
+            {advantages.map((advantage, idx: number) => (
               <Advantage
                 key={advantage?.title}
                 title={advantage?.title}

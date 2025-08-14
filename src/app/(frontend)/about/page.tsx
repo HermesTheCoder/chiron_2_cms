@@ -18,6 +18,7 @@ const json = await res.json();
 const aboutPage: About = json?.docs?.[0];
 const banner = aboutPage?.banner;
 
+
 export default function AboutPage() {
   return (
     <>
