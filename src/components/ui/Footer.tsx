@@ -110,15 +110,17 @@ export default function Footer() {
             
                 <h3 className="text-lg font-bold mb-5 text-white">Contact</h3>
                 <ul className="space-y-3">
-                  {footerData?.footerLinks?.map((footerLink) => (
-                    <li key={footerLink?.label}>
-                      <Link 
-                        href={footerLink?.link}
-                        className="text-gray-400 hover:text-primary transition-colors"
-                      >
-                        {footerLink?.label}
-                      </Link>
-                    </li>
+                  {footerData?.footerLinks
+                    ?.filter((footerLink) => footerLink?.link) 
+                    .map((footerLink) => (
+                      <li key={footerLink?.label}>
+                        <Link
+                          href={footerLink?.link}
+                          className="text-gray-400 hover:text-primary transition-colors"
+                        >
+                          {footerLink?.label}
+                        </Link>
+                      </li>
                   ))}
                 </ul>
           </div>

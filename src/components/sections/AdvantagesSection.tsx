@@ -36,7 +36,7 @@ function Advantage({ isVisible, delay, icon, title, description }: AdvantageProp
     >
       <div className="flex flex-col items-start">
         <div className="w-16 h-16 mb-5 p-3 bg-primary/10 rounded-lg text-primary">
-          <img src={icon?.url ?? ""} alt={icon?.alt ?? ""} />
+          {icon?.url && <img src={icon?.url ?? ""} alt={icon?.alt ?? ""} />}
         </div>
         <h3 className="text-xl font-bold mb-4">{title}</h3>
         <div className="text-text-light leading-relaxed"><RichText data={description}/></div>
@@ -69,42 +69,6 @@ export default function AdvantagesSection({ data }: AdvantagesSectionProps) {
 
   const advantages = data?.features;
 
-  // const advantages = [
-  //   {
-  //     title: "Safety First",
-  //     description: "Our technology bypasses the need of exogenous transgenes or viral vectors, negating the risk of viral genome integration, genetic instability and tumorigenesis.",
-  //     icon: (
-  //       <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-  //         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-  //       </svg>
-  //     ),
-  //     delay: "delay-0"
-  //   },
-  //   {
-  //     title: "High-Yield and Scalable",
-  //     description: "Our process can be scaled to meet the demands of large-scale stem cell therapies.",
-  //     icon: (
-  //       <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-  //         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-  //       </svg>
-  //     ),
-  //     delay: "delay-200"
-  //   },
-  //   {
-  //     title: "Tissue Specificity",
-  //     description: "Our method generates adult stem cells (ASCs) tailored to specific tissue types, enhancing their therapeutic relevance for targeted regenerative treatments.",
-  //     icon: (
-  //       <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-  //         <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-  //         <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-  //         <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
-  //         <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-  //       </svg>
-  //     ),
-  //     delay: "delay-400"
-  //   }
-  // ];
-
   return (
     <section id="advantages-section" className="py-20 md:py-28 bg-gray-50 relative overflow-hidden">
       {/* Background decoration */}
@@ -115,18 +79,18 @@ export default function AdvantagesSection({ data }: AdvantagesSectionProps) {
         <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <SectionTitle 
             subtitle="KEY ADVANTAGES" 
-            title="Why Our Technology Stands Out" 
+            title={data?.title}
             accent={true}
           />
           
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <p className="text-lg text-text-light leading-relaxed">
-              Our proprietary Suspension-Induced Stem Cell Transition (SIST) technology offers significant advantages over traditional stem cell approaches.
-            </p>
+            <div className="text-lg text-text-light leading-relaxed">
+              <RichText data={data?.description}/>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {advantages.map((advantage, idx: number) => (
+            {advantages?.map((advantage, idx: number) => (
               <Advantage
                 key={advantage?.title}
                 title={advantage?.title}

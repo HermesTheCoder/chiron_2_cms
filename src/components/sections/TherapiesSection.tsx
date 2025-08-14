@@ -50,23 +50,6 @@ export default function TherapiesSection({data}: TherapySectionProps) {
 
   const therapies = data?.therapies;
 
-  // const therapies = [
-  //   {
-  //     title: "Cartilage Regeneration Therapy",
-  //     description: 
-  //       "Our innovative, patented method generates functional chondrocytes—specialized cartilage-producing cells—from readily accessible somatic skin cells, eliminating the need for invasive bone marrow procedures.",
-  //     imageSrc: "/assets/experiment.png",
-  //     link: "/therapies/#cartilage-regeneration"
-  //   },
-  //   {
-  //     title: "Wound Healing Therapy",
-  //     description: 
-  //       "Our scalable, patient-friendly method meets the growing need for generating human keratinocyte stem cells, which are essential for effective wound repair and skin regeneration.",
-  //     imageSrc: "/assets/hero_image2.png",
-  //     link: "/therapies/#wound-healing"
-  //   }
-  // ];
-
   return (
     <section id="therapies-section" className="py-20 md:py-28 bg-gradient-to-b from-background to-gray-50">
       <div className="container">
@@ -84,7 +67,7 @@ export default function TherapiesSection({data}: TherapySectionProps) {
           </div>
           
           <div className="grid grid-cols-1 gap-10 md:gap-16 mb-16">
-            {therapies.map((therapy, index) => (
+            {therapies?.map((therapy, index) => (
               <div 
                 key={therapy?.title}
                 className={`

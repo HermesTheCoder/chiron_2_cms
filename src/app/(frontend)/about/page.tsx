@@ -13,13 +13,12 @@ export const metadata = {
   description: "Learn about Chiron Therapeutics' mission, history, innovative stem cell technology, and our expert team driving the future of regenerative medicine.",
 };
 
-const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/about`);
-const json = await res.json();
-const aboutPage: About = json?.docs?.[0];
-const banner = aboutPage?.banner;
+export default async function AboutPage() {
 
-
-export default function AboutPage() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/about`);
+  const json = await res.json();
+  const aboutPage: About = json?.docs?.[0];
+  const banner = aboutPage?.banner;
   return (
     <>
       <Header />
@@ -28,7 +27,7 @@ export default function AboutPage() {
         <section className="relative h-[50vh] md:h-[60vh] flex items-center pt-20 overflow-hidden">
           {/* Background Image with blur effect */}
           <div className="absolute inset-0 z-0">
-            <Image
+            {banner?.backgroundImage?.url && <Image
               src={banner?.backgroundImage?.url ?? ""}
               alt={banner?.backgroundImage?.alt}
               fill
@@ -36,7 +35,7 @@ export default function AboutPage() {
               priority
               quality={90}
               className="filter blur-[2px] scale-105 brightness-[0.7]"
-            />
+            />}
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60 backdrop-blur-sm"></div>
           </div>
           

@@ -118,14 +118,14 @@ export default function TeamSection({
                 <div className="flex flex-col h-full bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 group hover:-translate-y-1">
                   {/* Image Display with improved container */}
                   <div className="relative aspect-[4/3] w-full overflow-hidden bg-gradient-to-b from-gray-50 to-white">
-                    <Image
+                    {member?.image?.url && <Image
                       src={member?.image?.url ?? ""}
                       alt={member?.image?.alt}
                       fill
                       style={{ objectFit: 'contain', objectPosition: 'center' }}
                       className="transition-transform duration-500 group-hover:scale-[1.03]"
                       sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
-                    />
+                    />}
                     
                     {/* Decorative element */}
                     <div className="absolute bottom-0 left-0 w-full h-4 bg-gradient-to-r from-primary/20 via-primary/10 to-transparent"></div>

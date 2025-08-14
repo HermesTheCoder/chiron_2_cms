@@ -13,20 +13,19 @@ export const metadata = {
   description: "Investment opportunities in Chiron Therapeutics. Learn about our revolutionary stem cell technology, market potential, and connect with our team.",
 };
 
-const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/investors`);
+export default async function InvestorsPage() {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/investors`);
 const json = await res.json();
 const investorPage: InvestorsPage = json?.docs?.[0];
-const banner = investorPage.banner;
-const investmentOpportunity = investorPage.investmentOpportunity;
-const invest = investorPage.invest;
-const marketAnalysis = investorPage.marketAnalysis;
-const technologyAndInnovation = investorPage.technologyAndInnovation;
-const corning = investorPage.corning;
-const clinicalApplications = investorPage.clinicalApplications;
-const companyProfile = investorPage.companyProfile;
-
-
-export default function InvestorsPage() {
+const banner = investorPage?.banner;
+const investmentOpportunity = investorPage?.investmentOpportunity;
+const invest = investorPage?.invest;
+const marketAnalysis = investorPage?.marketAnalysis;
+const technologyAndInnovation = investorPage?.technologyAndInnovation;
+const corning = investorPage?.corning;
+const clinicalApplications = investorPage?.clinicalApplications;
+const companyProfile = investorPage?.companyProfile;
   return (
     <>
       <Header />
@@ -35,27 +34,27 @@ export default function InvestorsPage() {
         <section className="relative h-[50vh] md:h-[60vh] flex items-center pt-20 overflow-hidden">
           {/* Background Image with blur effect */}
           <div className="absolute inset-0 z-0">
-            <Image
-              src={banner.backgroundImage.url ?? ""}
-              alt={banner.backgroundImage.alt}
+            {banner?.backgroundImage?.url && <Image
+              src={banner?.backgroundImage?.url ?? ""}
+              alt={banner?.backgroundImage?.alt}
               fill
               style={{ objectFit: "cover", objectPosition: "center" }}
               priority
               quality={90}
               className="filter blur-[2px] scale-105 brightness-[0.7]"
-            />
+            />}
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60 backdrop-blur-sm"></div>
           </div>
           
           <div className="container relative z-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white text-shadow-lg mb-4">
-              {banner.title}
+              {banner?.title}
             </h1>
             <div className="text-xl md:text-2xl text-white/90 max-w-3xl text-shadow">
-              <RichText data={banner.description} />
+              <RichText data={banner?.description} />
             </div>
             <div className="mt-8">
-              <Button href={banner.CTA.link} size="lg">{banner.CTA.text}</Button>
+              <Button href={banner?.CTA?.link} size="lg">{banner?.CTA?.text}</Button>
             </div>
           </div>
         </section>
@@ -66,19 +65,19 @@ export default function InvestorsPage() {
             <div className="max-w-6xl mx-auto">
               <SectionTitle 
                 subtitle="INVESTMENT OPPORTUNITY" 
-                title={investmentOpportunity.title}
+                title={investmentOpportunity?.title}
                 accent={true}
                 alignment="center"
               />
               
               <div className="mt-12 max-w-4xl mx-auto">
                 <div className="text-lg text-text-light leading-relaxed mb-6">
-                  <RichText data={investmentOpportunity.description} />
+                  <RichText data={investmentOpportunity?.description} />
                 </div>
                 
                 <div className="bg-primary/5 p-6 rounded-xl border-l-4 border-primary my-8">
                   <div className="text-lg font-medium">
-                    <RichText data={investmentOpportunity.cardData}/>
+                    <RichText data={investmentOpportunity?.cardData}/>
                   </div>
                 </div>
               </div>
@@ -86,27 +85,27 @@ export default function InvestorsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mt-12">
                 <div>
                   <div className="relative h-96 w-full rounded-xl overflow-hidden shadow-xl">
-                    <Image
-                      src={investmentOpportunity.marketNeeds?.image.url ?? ""}
-                      alt={investmentOpportunity.marketNeeds?.image.alt}
+                    {investmentOpportunity?.marketNeeds?.image?.url && <Image
+                      src={investmentOpportunity?.marketNeeds?.image?.url ?? ""}
+                      alt={investmentOpportunity?.marketNeeds?.image?.alt}
                       fill
                       style={{ objectFit: "contain", objectPosition: "center" }}
                       className="rounded-xl p-4 bg-white"
-                    />
+                    />}
                   </div>
                 </div>
                 
                 <div className="align-start">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-6">{investmentOpportunity.marketNeeds?.title}</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-6">{investmentOpportunity?.marketNeeds?.title}</h3>
                   <ul className="space-y-4">
-                    {investmentOpportunity.marketNeeds?.pointers.map((point, idx) => (
+                    {investmentOpportunity?.marketNeeds?.pointers?.map((point, idx) => (
                       <li key={idx} className="flex items-start">
                       <svg className="w-6 h-6 text-primary mr-2 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                       <span className="text-text-light flex items-center gap-1">
-                        <strong className="text-gray-900">{point.title}</strong>:
-                        <RichText data={point.description} />
+                        <strong className="text-gray-900">{point?.title}</strong>:
+                        <RichText data={point?.description} />
                       </span>
                     </li>
                     ))}
@@ -122,41 +121,41 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="WHY INVEST" 
-              title={invest.title}
+              title={invest?.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
               <div className="text-lg text-text-light">
-                <RichText data={invest.description} />
+                <RichText data={invest?.description} />
               </div>
             </div>
             
             {/* Advantages */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"> 
               {
-                invest.cards.map((card, idx: number) => (
+                invest?.cards?.map((card, idx: number) => (
                   <div
                     key={idx}
                     className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 duration-300"
                   >
                     <div className="p-6 border-b border-gray-100">
                       <div className="relative w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 overflow-hidden">
-                        <Image
-                          src={card.icon.url ?? ""}
-                          alt={card.icon.alt || ""}
+                        {card?.icon?.url && <Image
+                          src={card?.icon?.url ?? ""}
+                          alt={card?.icon?.alt || ""}
                           fill
                           priority
                           quality={90}
                           className="object-contain"
-                        />
+                        />}
                       </div>
-                      <h3 className="text-xl font-bold mb-2">{card.title}</h3>
+                      <h3 className="text-xl font-bold mb-2">{card?.title}</h3>
                     </div>
                     <div className="px-6 py-4">
                       <div className="text-text-light">
-                        <RichText data={card.description} />
+                        <RichText data={card?.description} />
                       </div>
                     </div>
                   </div>
@@ -171,39 +170,39 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="MARKET ANALYSIS" 
-              title={marketAnalysis.title}
+              title={marketAnalysis?.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
               <div className="text-lg text-text-light">
-                <RichText data={marketAnalysis.description}/>
+                <RichText data={marketAnalysis?.description}/>
               </div>
             </div>
             
             <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-lg p-8 mb-12">
               <div className="mb-6">
-                <h3 className="text-2xl font-bold mb-4">{marketAnalysis.primaryCard.title}</h3>
+                <h3 className="text-2xl font-bold mb-4">{marketAnalysis?.primaryCard?.title}</h3>
                 <div className="text-text-light mb-6">
-                  <RichText data={marketAnalysis.primaryCard.description} />
+                  <RichText data={marketAnalysis?.primaryCard?.description} />
                 </div>
               </div>
               <div className="relative h-[500px] w-full rounded-lg overflow-hidden">
-                <Image
-                  src={marketAnalysis.primaryCard.image.url ?? ""}
-                  alt={marketAnalysis.primaryCard.image.alt}
+                {marketAnalysis?.primaryCard?.image?.url && <Image
+                  src={marketAnalysis?.primaryCard?.image?.url ?? ""}
+                  alt={marketAnalysis?.primaryCard?.image?.alt}
                   fill
                   style={{ objectFit: "contain" }}
                   className="rounded-lg"
-                />
+                />}
               </div>
               <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-8">
                 {
-                  marketAnalysis.primaryCard.feature.map((feature, idx: number) => (
+                  marketAnalysis?.primaryCard?.feature?.map((feature, idx: number) => (
                     <div key={idx} className="bg-gray-50 p-4 rounded-lg">
-                      <h4 className="text-xl font-semibold text-primary">{feature.title}</h4>
-                      <p className="text-sm text-text-light">{feature.text}</p>
+                      <h4 className="text-xl font-semibold text-primary">{feature?.title}</h4>
+                      <p className="text-sm text-text-light">{feature?.text}</p>
                     </div>
                   ))
                 }
@@ -213,21 +212,21 @@ export default function InvestorsPage() {
             <div className="max-w-5xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {
-                  marketAnalysis.secondaryCard.map((card, cardIdx) => (
+                  marketAnalysis?.secondaryCard?.map((card, cardIdx) => (
                     <div key={cardIdx} className="bg-white p-6 rounded-xl shadow-md">
                       <h3 className="text-xl font-bold mb-4 flex items-center">
                         <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
-                        {card.title}
+                        {card?.title}
                       </h3>
                       <ul className="space-y-3">
-                        {card.point.map((point, pointIdx) => (
+                        {card.point?.map((point, pointIdx) => (
                           <li key={`card-${cardIdx}-feature-${pointIdx}`} className="flex items-start">
                             <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                             </svg>
-                            <span>{point.text}</span>
+                            <span>{point?.text}</span>
                           </li>
                         ))}
                       </ul>
@@ -244,34 +243,34 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="TECHNOLOGY & INNOVATION" 
-              title={technologyAndInnovation.title}
+              title={technologyAndInnovation?.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
               <div className="text-lg text-text-light">
-                <RichText data={technologyAndInnovation.description} />
+                <RichText data={technologyAndInnovation?.description} />
               </div>
             </div>
             
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
                 {/* Charts - Tech & Innovation*/}
-                {technologyAndInnovation.card.map((card, idx) => (
+                {technologyAndInnovation?.card?.map((card, idx) => (
                   <div key={idx} className="bg-white rounded-xl shadow-lg p-8">
-                  <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
+                  <h3 className="text-2xl font-bold mb-4">{card?.title}</h3>
                   <div className="text-text-light mb-6">
-                    <RichText data={card.description} />
+                    <RichText data={card?.description} />
                   </div>
                   <div className="relative h-[300px] w-full rounded-lg overflow-hidden">
-                    <Image
-                      src={card.image.url ?? ""}
+                    {card?.image?.url && <Image
+                      src={card?.image?.url ?? ""}
                       alt="Chart showing 10,000x gap between available MSCs and projected clinical demand"
                       fill
                       style={{ objectFit: "contain" }}
                       className="rounded-lg"
-                    />
+                    />}
                   </div>
                 </div>
                 ))}
@@ -280,22 +279,22 @@ export default function InvestorsPage() {
               {/* SIST Breakthrough Box */}
               <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-8 shadow-lg mb-16">
                 <div className="max-w-4xl mx-auto">
-                  <h3 className="text-2xl font-bold mb-4 text-center">{technologyAndInnovation.card2.title}</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-center">{technologyAndInnovation?.card2?.title}</h3>
                   <div className="text-lg text-text-light leading-relaxed mb-6 text-center">
-                    <RichText data={technologyAndInnovation.card2.description}/>
+                    <RichText data={technologyAndInnovation?.card2?.description}/>
                   </div>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-                    {technologyAndInnovation.card2.features.map((feature, idx) => (
+                    {technologyAndInnovation?.card2?.features?.map((feature, idx) => (
                       <div key={idx} className="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
                       <h4 className="font-bold text-lg mb-3 flex items-center">
                         <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
-                        {feature.title}
+                        {feature?.title}
                       </h4>
                       <div className="text-text-light">
-                        <RichText data={feature.description} />
+                        <RichText data={feature?.description} />
                       </div>
                     </div>
                     ))}
@@ -312,16 +311,16 @@ export default function InvestorsPage() {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold">{corning.title}</h3>
+                    <h3 className="text-2xl font-bold">{corning?.title}</h3>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                  {corning.cards.map((card, idx) => (
+                  {corning?.cards?.map((card, idx) => (
                     <div key={idx} className="border-l-4 border-primary p-4 bg-gray-50 rounded-r-lg">
-                    <h4 className="font-bold mb-2">{card.title}</h4>
+                    <h4 className="font-bold mb-2">{card?.title}</h4>
                     <div className="text-sm text-text-light">
-                      <RichText data={card.description}/>
+                      <RichText data={card?.description}/>
                     </div>
                   </div>
                   ))}
@@ -336,42 +335,42 @@ export default function InvestorsPage() {
           <div className="container">
             <SectionTitle 
               subtitle="CLINICAL APPLICATIONS" 
-              title={clinicalApplications.title}
+              title={clinicalApplications?.title}
               accent={true}
               alignment="center"
             />
             
             <div className="max-w-4xl mx-auto text-center mb-12">
               <div className="text-lg text-text-light">
-                <RichText data={clinicalApplications.description} />
+                <RichText data={clinicalApplications?.description} />
               </div>
             </div>
             
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-                {clinicalApplications.card.map((card, idx) => (
+                {clinicalApplications?.card?.map((card, idx) => (
                   <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
                   <div className="h-48 bg-gradient-to-r from-primary/30 to-primary/10 relative p-8">
-                    <div className={`absolute inset-0 bg-[url(${card.image.url})] bg-cover bg-center`}></div>
+                    <div className={`absolute inset-0 bg-[url(${card?.image?.url})] bg-cover bg-center`}></div>
                     <div className="relative z-10">
                       <div className="w-14 h-14 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4">
                         <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                       </div>
-                      <h3 className="text-2xl font-bold text-white">{card.title}</h3>
+                      <h3 className="text-2xl font-bold text-white">{card?.title}</h3>
                     </div>
                   </div>
                   <div className="p-8">
                     <div className="text-text-light mb-6">
-                      <RichText data={card.description} />
+                      <RichText data={card?.description} />
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <div className="w-3 h-3 rounded-full bg-primary mr-2"></div>
-                        <span className="text-sm font-medium">{card.stage}</span>
+                        <span className="text-sm font-medium">{card?.stage}</span>
                       </div>
-                      <span className="text-sm text-primary font-semibold">{card.filing}</span>
+                      <span className="text-sm text-primary font-semibold">{card?.filing}</span>
                     </div>
                   </div>
                 </div>
@@ -383,20 +382,20 @@ export default function InvestorsPage() {
                   <svg className="w-6 h-6 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <h3 className="text-xl font-bold">{clinicalApplications.regulatoryStrategy.title}</h3>
+                  <h3 className="text-xl font-bold">{clinicalApplications?.regulatoryStrategy?.title}</h3>
                 </div>
                 <div className="pl-8">
                   <div className="text-text-light mb-4">
-                    <RichText data={clinicalApplications.regulatoryStrategy.description} />
+                    <RichText data={clinicalApplications?.regulatoryStrategy?.description} />
                   </div>
                   <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {
-                      clinicalApplications.regulatoryStrategy.points.map((point, idx) => (
+                      clinicalApplications?.regulatoryStrategy?.points?.map((point, idx) => (
                         <li key={idx} className="flex items-start">
                           <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                           </svg>
-                          <span className="text-sm">{point.text}</span>
+                          <span className="text-sm">{point?.text}</span>
                         </li>
                       ))
                     }
@@ -495,7 +494,7 @@ export default function InvestorsPage() {
             <div className="max-w-6xl mx-auto">
               <SectionTitle 
                 subtitle="COMPANY PROFILE" 
-                title={companyProfile.title}
+                title={companyProfile?.title}
                 accent={true}
                 alignment="center"
               />
@@ -503,20 +502,20 @@ export default function InvestorsPage() {
               <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mt-12">
                 <div className="lg:col-span-3">
                   <div className="text-lg text-text-light leading-relaxed mb-6">
-                    <RichText data={companyProfile.description} />
+                    <RichText data={companyProfile?.description} />
                   </div>
                   
                   <div className="border-l-4 border-primary pl-6 my-8">
-                    <h3 className="text-xl font-bold mb-3">{companyProfile.mission.title}</h3>
+                    <h3 className="text-xl font-bold mb-3">{companyProfile?.mission?.title}</h3>
                     <p className="text-lg text-text-light leading-relaxed">
-                      {companyProfile.mission.description}
+                      {companyProfile?.mission?.description}
                     </p>
                   </div>
                   
                   <div className="mt-8">
-                    <h3 className="text-xl font-bold mb-3">{companyProfile.mission2.title}</h3>
+                    <h3 className="text-xl font-bold mb-3">{companyProfile?.mission2?.title}</h3>
                     <p className="text-lg text-text-light leading-relaxed mb-4">
-                      {companyProfile.mission2.description}
+                      {companyProfile?.mission2?.description}
                     </p>
                   </div>
                 </div>
@@ -528,24 +527,24 @@ export default function InvestorsPage() {
                         <svg className="w-5 h-5 text-primary mr-2" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                         </svg>
-                        {companyProfile.companyHighlights.title}
+                        {companyProfile?.companyHighlights?.title}
                       </h3>
                       <ul className="space-y-3">
                         {
-                          companyProfile.companyHighlights.highlights.map((highlight, idx) => (
+                          companyProfile?.companyHighlights?.highlights?.map((highlight, idx) => (
                             <li key={idx} className="flex items-start">
                               <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                               </svg>
-                              <span>{highlight.highlight}</span>
+                              <span>{highlight?.highlight}</span>
                             </li>
                           ))
                         }
                       </ul>
                     </div>
                     <div className="text-center">
-                      <Button href="#contact-section" size="lg">
-                        Request Investor Deck
+                      <Button href={companyProfile?.CTA?.link} size="lg">
+                        {companyProfile?.CTA?.text}
                       </Button>
                     </div>
                   </div>
