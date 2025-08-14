@@ -539,6 +539,7 @@ export interface InvestorsPage {
     };
   };
 }
+
 export interface Footer {
   footerLinks: {
     label: string;
