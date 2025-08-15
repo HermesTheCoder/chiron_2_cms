@@ -1,23 +1,22 @@
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
-import sharp from 'sharp'
+import { mongooseAdapter } from "@payloadcms/db-mongodb";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import path from "path";
+import { buildConfig } from "payload";
+import { fileURLToPath } from "url";
+import sharp from "sharp";
 
+import { Users } from "./collections/Users.ts";
+import { Media } from "./collections/Media.ts";
+import Therapies from "./collections/Therapies.ts";
+import About from "./collections/About.ts";
+import Home from "./collections/Home.ts";
+import LeadershipTeam from "./globals/LeadershipTeam.ts";
+import Footer from "./globals/Footer.ts";
+import Investors from "./collections/Investors.ts";
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 
-import { Users } from './collections/Users.ts'
-import { Media } from './collections/Media.ts'
-import Therapies from './collections/Therapies.ts'
-import About from './collections/About.ts'
-import Home from './collections/Home.ts'
-import LeadershipTeam from './globals/LeadershipTeam.ts'
-import Footer from './globals/Footer.ts'
-import Investors from './collections/Investors.ts'
-
-const filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(filename)
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 export default buildConfig({
   admin: {
@@ -29,16 +28,20 @@ export default buildConfig({
   collections: [Users, Media, Therapies, About, Home, Investors],
   globals: [LeadershipTeam, Footer],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
+    outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   db: mongooseAdapter({
-    url: process.env.DATABASE_URI || '',
+    url: process.env.DATABASE_URI || "",
   }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
-    // storage-adapter-placeholder
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN || "",
+    }),
   ],
-})
+});
