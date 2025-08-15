@@ -16,16 +16,17 @@ export const metadata = {
 export default async function InvestorsPage() {
 
   const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/investors`);
-const json = await res.json();
-const investorPage: InvestorsPage = json?.docs?.[0];
-const banner = investorPage?.banner;
-const investmentOpportunity = investorPage?.investmentOpportunity;
-const invest = investorPage?.invest;
-const marketAnalysis = investorPage?.marketAnalysis;
-const technologyAndInnovation = investorPage?.technologyAndInnovation;
-const corning = investorPage?.corning;
-const clinicalApplications = investorPage?.clinicalApplications;
-const companyProfile = investorPage?.companyProfile;
+  const json = await res.json();
+  const investorPage: InvestorsPage = json?.docs?.[0];
+  const banner = investorPage?.banner;
+  const investmentOpportunity = investorPage?.investmentOpportunity;
+  const invest = investorPage?.invest;
+  const marketAnalysis = investorPage?.marketAnalysis;
+  const technologyAndInnovation = investorPage?.technologyAndInnovation;
+  const corning = investorPage?.corning;
+  const clinicalApplications = investorPage?.clinicalApplications;
+  const companyProfile = investorPage?.companyProfile;
+  const growthPath = investorPage?.growthPath;
   return (
     <>
       <Header />
@@ -411,7 +412,7 @@ const companyProfile = investorPage?.companyProfile;
           <div className="container">
             <SectionTitle 
               subtitle="GROWTH PATH" 
-              title="Our Investment Journey"
+              title={growthPath?.title}
               accent={true}
               alignment="center"
             />
@@ -427,61 +428,34 @@ const companyProfile = investorPage?.companyProfile;
                 {/* Current: Seed Round */}
                 <div className="bg-primary/5 rounded-xl p-4 sm:p-6 md:w-1/4 relative border-l-4 border-primary">
                   <div className="absolute -top-4 left-4 sm:left-6 bg-primary text-white text-xs px-3 py-1 rounded-full">CURRENT</div>
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">Seed Round</h3>
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">{growthPath?.phases?.[0]?.title}</h3>
                   <div className="text-sm text-text-light space-y-1 sm:space-y-2">
-                    <p><span className="font-medium">Raise:</span> $4M</p>
-                    <p><span className="font-medium">Valuation:</span> $20M pre-money</p>
-                    <p><span className="font-medium">Allocation:</span></p>
-                    <ul className="pl-4 list-disc text-xs space-y-1">
-                      <li>$2M IND preparation</li>
-                      <li>$1M manufacturing</li>
-                      <li>$1M operations</li>
-                    </ul>
+                    <RichText data={growthPath?.phases?.[0]?.description} />
                   </div>
                 </div>
                 
                 {/* Next: IND/Phase I */}
-                <div className="bg-gray-50 rounded-xl p-4 sm:p-6 md:w-1/4 border-l-4 border-gray-200">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">IND/Phase I</h3>
+                {growthPath?.phases.slice(1).map((phase) => (
+                  <div className="bg-gray-50 rounded-xl p-4 sm:p-6 md:w-1/4 border-l-4 border-gray-200">
+                  <h3 className="text-lg sm:text-xl font-bold mb-2">{phase?.title}</h3>
                   <div className="text-sm text-text-light space-y-1 sm:space-y-2">
-                    <p><span className="font-medium">Timeline:</span> 18 months</p>
-                    <p><span className="font-medium">Focus:</span> Preclinical data, regulatory filings</p>
-                    <p><span className="font-medium">Key Milestone:</span> First-in-human trials</p>
+                    <RichText data={phase?.description} />
                   </div>
                 </div>
-                
-                {/* Future: Series A */}
-                <div className="bg-gray-50 rounded-xl p-4 sm:p-6 md:w-1/4 border-l-4 border-gray-200">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">Series A</h3>
-                  <div className="text-sm text-text-light space-y-1 sm:space-y-2">
-                    <p><span className="font-medium">Target:</span> $20M+</p>
-                    <p><span className="font-medium">Timeline:</span> 2025</p>
-                    <p><span className="font-medium">Focus:</span> Clinical advancement, manufacturing scale-up</p>
-                  </div>
-                </div>
-                
-                {/* Future: Series B */}
-                <div className="bg-gray-50 rounded-xl p-4 sm:p-6 md:w-1/4 border-l-4 border-gray-200">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">Series B</h3>
-                  <div className="text-sm text-text-light space-y-1 sm:space-y-2">
-                    <p><span className="font-medium">Target:</span> $50M+</p>
-                    <p><span className="font-medium">Timeline:</span> 2026</p>
-                    <p><span className="font-medium">Returns:</span> 10x potential from seed</p>
-                  </div>
-                </div>
+                ))}
               </div>
               
               {/* Mobile Timeline Indicator */}
               <div className="flex justify-between text-xs md:hidden text-text-light mb-6 px-2">
-                <div>Current</div>
-                <div>2025</div>
-                <div>2026</div>
+                <div>{growthPath?.mobileTimeline?.current}</div>
+                <div>{growthPath?.mobileTimeline?.year1}</div>
+                <div>{growthPath?.mobileTimeline?.year2}</div>
               </div>
               
               {/* CTA */}
               <div className="text-center mt-6">
-                <Button href="#contact-section" size="lg" className="w-full sm:w-auto py-3 px-6 md:py-3 md:px-8">
-                  Connect With Our Investor Team
+                <Button href={growthPath?.cta?.link} size="lg" className="w-full sm:w-auto py-3 px-6 md:py-3 md:px-8">
+                  {growthPath?.cta?.title}
                 </Button>
               </div>
             </div>

@@ -516,6 +516,22 @@ export interface InvestorsPage {
       }[];
     };
   };
+  growthPath: {
+    title: string;
+    phases: {
+      title: string;
+      description: SerializedEditorState;
+    }[];
+    cta: {
+      title: string;
+      link: string;
+    },
+    mobileTimeline: {
+      current: string;
+      year1: string;
+      year2: string;
+    }
+  };
   companyProfile: {
     title: string;
     description: SerializedEditorState;
