@@ -36,7 +36,7 @@ function Advantage({ isVisible, delay, icon, title, description }: AdvantageProp
     >
       <div className="flex flex-col items-start">
         <div className="w-16 h-16 mb-5 p-3 bg-primary/10 rounded-lg text-primary">
-          <img src={icon?.url ?? ""} alt={icon?.alt ?? ""} />
+          {icon?.url && <img src={icon?.url ?? ""} alt={icon?.alt ?? ""} />}
         </div>
         <h3 className="text-xl font-bold mb-4">{title}</h3>
         <div className="text-text-light leading-relaxed"><RichText data={description}/></div>
@@ -79,18 +79,18 @@ export default function AdvantagesSection({ data }: AdvantagesSectionProps) {
         <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <SectionTitle 
             subtitle="KEY ADVANTAGES" 
-            title="Why Our Technology Stands Out" 
+            title={data?.title}
             accent={true}
           />
           
           <div className="max-w-3xl mx-auto text-center mb-16">
-            <p className="text-lg text-text-light leading-relaxed">
-              Our proprietary Suspension-Induced Stem Cell Transition (SIST) technology offers significant advantages over traditional stem cell approaches.
-            </p>
+            <div className="text-lg text-text-light leading-relaxed">
+              <RichText data={data?.description}/>
+            </div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {advantages.map((advantage, idx: number) => (
+            {advantages?.map((advantage, idx: number) => (
               <Advantage
                 key={advantage?.title}
                 title={advantage?.title}

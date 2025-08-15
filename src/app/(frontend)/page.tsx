@@ -6,11 +6,12 @@ import AdvantagesSection from "@/components/sections/AdvantagesSection";
 import ContactSection from "@/components/sections/ContactSection";
 import type { Home } from "@/payload-types";
 
-const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/home`);
-const json = await res.json();
-const homePage: Home = json?.docs?.[0];
 
-export default function Home() {
+export default async function Home() {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/home`);
+  const json = await res.json();
+  const homePage: Home = json?.docs?.[0];
   return (
     <>
       <Header />

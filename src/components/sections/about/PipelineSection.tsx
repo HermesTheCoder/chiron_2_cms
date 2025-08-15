@@ -74,14 +74,14 @@ export default function PipelineSection({data}: PipelineSectionProps) {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}>
               <div className="relative w-full">
-                <Image
+                {data?.image?.url && <Image
                   src={data?.image?.url ?? ""}
                   alt={data?.image?.alt}
                   width={1200}
                   height={600}
                   className="mx-auto"
                   style={{ objectFit: 'contain' }}
-                />
+                />}
               </div>
             </div>
             
@@ -100,7 +100,8 @@ export default function PipelineSection({data}: PipelineSectionProps) {
                   data?.clinicalDevelopmentPrograms?.pipelines?.map((pipeline, idx) => (
                     <div key={idx} className="bg-white p-6 rounded-xl shadow-md">
                       <div className="w-12 h-12 rounded-full bg-[#F8B359]/20 flex items-center justify-center mb-4">
-                        <img src={pipeline?.icon?.url ?? ""} alt={pipeline?.icon?.alt} />
+                        {pipeline?.icon?.url &&
+                        <Image src={pipeline?.icon?.url ?? ""} alt={pipeline?.icon?.alt} />}
                       </div>
                       <h4 className="text-lg font-medium mb-2">{pipeline?.title}</h4>
                       <div className="text-center">

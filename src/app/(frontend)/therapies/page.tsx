@@ -13,14 +13,16 @@ export const metadata = {
 /**
  * Fetch the 'Therapies' collection data from PayloadCMS 
  */
-const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/therapies`);
-const json = await res.json();
-const section: Therapies = json?.docs?.[0];
-const banner = section?.banner;
-const ourApproach = section?.ourApproach;
-const therapies = section?.therapies;
 
-export default function TherapiesPage() {
+
+export default async function TherapiesPage() {
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/therapies`);
+  const json = await res.json();
+  const section: Therapies = json?.docs?.[0];
+  const banner = section?.banner;
+  const ourApproach = section?.ourApproach;
+  const therapies = section?.therapies;
   return (
     <>
       <Header />
@@ -29,7 +31,7 @@ export default function TherapiesPage() {
         <section className="relative h-[50vh] md:h-[60vh] flex items-center pt-20 overflow-hidden">
           {/* Background Image with blur effect */}
           <div className="absolute inset-0 z-0">
-            <Image
+            {banner?.image?.url && <Image
               src={banner?.image?.url ?? ""}
               alt={banner?.image?.alt}
               fill
@@ -37,7 +39,7 @@ export default function TherapiesPage() {
               priority
               quality={90}
               className="filter blur-[2px] scale-105 brightness-[0.7]"
-            />
+            />}
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60 backdrop-blur-sm"></div>
           </div>
           
@@ -74,7 +76,7 @@ export default function TherapiesPage() {
         </section>
         
         {/* Pipeline 1: Cartilage Regeneration */}
-        <section id="cartilage-regeneration" className="py-16 md:py-24 bg-gray-50">
+        {therapies && therapies?.length && <section id="cartilage-regeneration" className="py-16 md:py-24 bg-gray-50">
           <div className="container">
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -99,20 +101,20 @@ export default function TherapiesPage() {
                   {/* First image for Cartilage Regeneration */}
                   <div className="bg-white p-4 rounded-xl shadow-md">
                     <div className="relative h-64 w-full">
-                      <Image
+                      {therapies[0]?.image1?.url && <Image
                         src={therapies[0]?.image1?.url ?? ""}
                         alt={therapies[0]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
-                      />
+                      />}
                     </div>
                     <div className="relative h-64 w-full mb-4">
-                      <Image
+                      {therapies[0]?.image2?.url && <Image
                         src={therapies[0]?.image2?.url ?? ""}
                         alt={therapies[0]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
-                      />
+                      />}
                     </div>
                     <p className="text-sm text-text-light text-center">
                       {therapies[0]?.caption}
@@ -124,22 +126,22 @@ export default function TherapiesPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section>}
         
         {/* Pipeline 2: Wound Healing */}
-        <section id="wound-healing" className="py-16 md:py-24 bg-white">
+        {therapies && therapies?.length>1 && <section id="wound-healing" className="py-16 md:py-24 bg-white">
           <div className="container">
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="order-2 lg:order-1 space-y-8">
                   <div className="bg-white p-4 rounded-xl shadow-md">
                     <div className="relative h-64 w-full mb-4">
-                      <Image
+                      {therapies[1]?.image1?.url && <Image
                         src={therapies[1]?.image1?.url ?? ""}
                         alt={therapies[1]?.image1?.alt}
                         fill
                         style={{ objectFit: "contain" }}
-                      />
+                      />}
                     </div>
                     <p className="text-sm text-text-light text-center">
                       {therapies[1]?.caption}
@@ -166,7 +168,7 @@ export default function TherapiesPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section>}
         
         {/* Call to Action */}
         <section className="py-16 md:py-24 bg-gradient-to-r from-primary/10 to-primary/5 dark:from-primary/20 dark:to-black/40">

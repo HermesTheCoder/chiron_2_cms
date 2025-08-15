@@ -80,8 +80,8 @@ export default function MissionSection({data}: MissionSectionProps) {
                 }`}>
                   <div className="flex flex-col h-full">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                      <img src={missionValue?.image?.url ?? ""} alt={missionValue?.image?.alt} />
-                      {/* {missionValue?.image?.url} */}
+                      { missionValue?.image?.url &&
+                        <Image src={missionValue?.image?.url ?? ""} alt={missionValue?.image?.alt} />}
                     </div>
                     <h3 className="text-lg font-medium mb-3">{missionValue?.title}</h3>
                     <div className="text-text-light">
@@ -106,14 +106,14 @@ export default function MissionSection({data}: MissionSectionProps) {
             
             <div className="bg-white p-6 md:p-8 rounded-xl shadow-lg">
               <div className="relative w-full" style={{ maxWidth: "800px", margin: "0 auto" }}>
-                <Image
+                {data?.SISTProcess?.image?.url && <Image
                   src={data?.SISTProcess?.image?.url ?? ""}
                   alt={data?.SISTProcess?.image?.alt}
                   width={800}
                   height={500}
                   className="mx-auto"
                   style={{ objectFit: 'contain' }}
-                />
+                />}
               </div>
               <div className="mt-6 text-center text-sm text-text-light">
                 <p>{data?.SISTProcess?.imageCaption}</p>

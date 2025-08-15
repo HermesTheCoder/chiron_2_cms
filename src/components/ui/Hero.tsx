@@ -39,14 +39,14 @@ export default function Hero({data}: HeroSectionProps) {
     <section className="hero-section">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <Image
+        {data?.backgroundImage?.url && <Image
           src={data?.backgroundImage?.url ?? ""}
           alt={data?.backgroundImage?.alt}
           fill
           style={{ objectFit: "cover", objectPosition: "center" }}
           priority
           quality={100}
-        />
+        />}
         <div className="hero-overlay bg-gradient-to-b from-black/70 via-black/60 to-black/50"></div>
       </div>
 
@@ -74,19 +74,19 @@ export default function Hero({data}: HeroSectionProps) {
               isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
-            <Link 
+            {data?.primaryCTA?.link && <Link 
               href={data?.primaryCTA?.link}
               className="btn btn-primary text-lg px-8 py-4 shadow-lg hover:shadow-xl hover:translate-y-[-2px] hover:scale-[1.02]"
             >
               {data?.primaryCTA?.text}
-            </Link>
+            </Link>}
             
-            <Link 
+            {data?.secondaryCTA?.link && <Link 
               href={data?.secondaryCTA?.link}
               className="btn bg-white/10 backdrop-blur-sm border-2 border-white/70 text-white hover:bg-white/20 text-lg px-8 py-4 transition-all duration-300"
             >
               {data?.secondaryCTA?.text}
-            </Link>
+            </Link>}
           </div>
         </div>
       </div>

@@ -25,13 +25,13 @@ export default function TherapyCard({
     <div className={`rounded-xl overflow-hidden shadow-lg ${accent ? 'bg-primary/5' : 'bg-white'}`}>
       <div className={`flex flex-col ${imagePosition === 'right' ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
         <div className="relative w-full md:w-1/2 h-64 md:h-auto">
-          <Image
+          {imageSrc?.url && <Image
             src={imageSrc?.url ?? ""}
             alt={imageSrc?.alt}
             fill
             style={{ objectFit: 'cover' }}
             className="transition-transform duration-700 hover:scale-105"
-          />
+          />}
         </div>
         
         <div className="w-full md:w-1/2 p-6 md:p-8 lg:p-10 flex flex-col justify-between">
@@ -40,7 +40,7 @@ export default function TherapyCard({
             <div className="text-text-light mb-6 leading-relaxed"><RichText data={description}/></div>
           </div>
           
-          <Link
+          {link && <Link
             href={link}
             className="inline-flex items-center group"
           >
@@ -60,7 +60,7 @@ export default function TherapyCard({
                 strokeLinejoin="round"
               />
             </svg>
-          </Link>
+          </Link>}
         </div>
       </div>
     </div>

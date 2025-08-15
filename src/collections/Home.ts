@@ -59,7 +59,7 @@ const Home: CollectionConfig = {
         },
         {
             name: "secondaryCTA",
-            label: "Primary CTA",
+            label: "Secondary CTA",
             type: "group",
             required: true,
             fields: [
