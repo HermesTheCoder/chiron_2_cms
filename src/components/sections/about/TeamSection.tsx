@@ -48,7 +48,7 @@ export default function TeamSection({
     );
 
     const fetchData = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/globals/leadershipTeam`);
+      const res = await fetch(`api/globals/leadershipTeam`);
       const data = await res.json();
       setTeamSectionData(data);
     };
