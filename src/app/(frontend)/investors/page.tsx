@@ -104,8 +104,8 @@ export default async function InvestorsPage() {
                       <svg className="w-6 h-6 text-primary mr-2 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      <span className="text-text-light flex items-center gap-1">
-                        <strong className="text-gray-900">{point?.title}</strong>:
+                      <span className="text-text-light flex gap-2 items-start">
+                        <strong className="text-gray-900 w-36 shrink-0">{point?.title}</strong>:
                         <RichText data={point?.description} />
                       </span>
                     </li>
@@ -267,7 +267,7 @@ export default async function InvestorsPage() {
                   <div className="relative h-[300px] w-full rounded-lg overflow-hidden">
                     {card?.image?.url && <Image
                       src={card?.image?.url ?? ""}
-                      alt="Chart showing 10,000x gap between available MSCs and projected clinical demand"
+                      alt={card?.image?.alt}
                       fill
                       style={{ objectFit: "contain" }}
                       className="rounded-lg"
@@ -352,7 +352,7 @@ export default async function InvestorsPage() {
                 {clinicalApplications?.card?.map((card, idx) => (
                   <div key={idx} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
                   <div className="h-48 bg-gradient-to-r from-primary/30 to-primary/10 relative p-8">
-                    <div className={`absolute inset-0 bg-[url(${card?.image?.url})] bg-cover bg-center`}></div>
+                    <div className={`absolute inset-0 bg-cover bg-center`} style={{ backgroundImage: `url(${card?.image?.url})` }}></div>
                     <div className="relative z-10">
                       <div className="w-14 h-14 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4">
                         <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -435,8 +435,8 @@ export default async function InvestorsPage() {
                 </div>
                 
                 {/* Next: IND/Phase I */}
-                {growthPath?.phases.slice(1).map((phase) => (
-                  <div className="bg-gray-50 rounded-xl p-4 sm:p-6 md:w-1/4 border-l-4 border-gray-200">
+                {growthPath?.phases.slice(1).map((phase, idx) => (
+                  <div key={idx} className="bg-gray-50 rounded-xl p-4 sm:p-6 md:w-1/4 border-l-4 border-gray-200">
                   <h3 className="text-lg sm:text-xl font-bold mb-2">{phase?.title}</h3>
                   <div className="text-sm text-text-light space-y-1 sm:space-y-2">
                     <RichText data={phase?.description} />

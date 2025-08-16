@@ -23,7 +23,7 @@ export default function Footer() {
   useEffect(() => {
   
       const fetchData = async () => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL}/globals/footer`);
+        const res = await fetch(`api/globals/footer`);
         const data = await res.json();
         setFooterData(data);
       };
