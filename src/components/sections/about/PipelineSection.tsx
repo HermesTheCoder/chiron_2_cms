@@ -16,6 +16,7 @@ type PipelineSectionProps = {
       title: string;
       description: SerializedEditorState;
       pipelines: {
+        iconBackgroundColor: string;
         icon: Media;
         title: string;
         description: SerializedEditorState;
@@ -56,7 +57,7 @@ export default function PipelineSection({data}: PipelineSectionProps) {
       <div className="container relative z-10">
         <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <SectionTitle 
-            subtitle="OUR PIPELINE" 
+            subtitle="OUR THERAPEUTICS" 
             title={data?.title}
             accent={true}
             alignment="center"
@@ -91,7 +92,7 @@ export default function PipelineSection({data}: PipelineSectionProps) {
             }`}>
               <h3 className="text-2xl font-semibold mb-6 text-center">{data?.clinicalDevelopmentPrograms?.title}</h3>
               
-              <div className="text-lg text-text-light leading-relaxed mb-6">
+              <div className="text-lg text-text-light text-center leading-relaxed mb-6">
                 <RichText data={data?.clinicalDevelopmentPrograms?.description} />
               </div>
               
@@ -99,14 +100,16 @@ export default function PipelineSection({data}: PipelineSectionProps) {
                 {
                   data?.clinicalDevelopmentPrograms?.pipelines?.map((pipeline, idx) => (
                     <div key={idx} className="bg-white p-6 rounded-xl shadow-md">
-                      <div className="w-12 h-12 rounded-full bg-[#F8B359]/20 flex items-center justify-center mb-4">
+                      <div 
+                      className={`w-12 h-12 rounded-full flex items-center justify-center mb-4`}
+                      style={{
+                        backgroundColor: `${pipeline?.iconBackgroundColor}33`,
+                      }}>
                         {pipeline?.icon?.url &&
-                        <Image src={pipeline?.icon?.url ?? ""} alt={pipeline?.icon?.alt} />}
+                        <img src={pipeline?.icon?.url ?? ""} alt={pipeline?.icon?.alt} />}
                       </div>
                       <h4 className="text-lg font-medium mb-2">{pipeline?.title}</h4>
-                      <div className="text-center">
-                        <RichText data={pipeline?.description}/>
-                      </div>
+                      <RichText data={pipeline?.description}/>
                     </div>
                   ))
                 }

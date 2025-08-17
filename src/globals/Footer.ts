@@ -8,6 +8,12 @@ const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: "description",
+      label: "Description",
+      type: "text",
+      required: true
+    },
+    {
       name: "footerLinks",
       label: "Footer Links",
       type: "array",
@@ -53,7 +59,28 @@ const Footer: GlobalConfig = {
         },
       ],
     },
-  ],
+    {
+      name: "socialMediasData",
+      label: "Social Media",
+      type: "array",
+      required: true,
+      fields: [
+        {
+          name: "icon",
+          label: "Icon",
+          type: "upload",
+          relationTo: "media",
+          required: true
+        },
+        {
+          name: "link",
+          label: "Link",
+          type: "text",
+          required: true
+        }
+      ]
+    },
+  ]
 };
 
 export default Footer;

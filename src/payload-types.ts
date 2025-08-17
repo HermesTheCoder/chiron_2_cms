@@ -398,6 +398,7 @@ export interface About {
       title: string;
       description: SerializedEditorState;
       pipelines: {
+        iconBackgroundColor: string;
         icon: Media;
         title: string;
         description: SerializedEditorState;
@@ -439,7 +440,7 @@ export interface InvestorsPage {
       image: Media;
       pointers: {
         title: string;
-        description: SerializedEditorState;
+        description: string;
       }[];
     };
   };
@@ -557,6 +558,7 @@ export interface InvestorsPage {
 }
 
 export interface Footer {
+  description: string;
   footerLinks: {
     label: string;
     link: string;
@@ -565,7 +567,11 @@ export interface Footer {
     address: string;
     number: string;
     mail: string;
-  }
+  };
+  socialMediasData: {
+    icon: Media;
+    socialMediaURL: string;
+  }[];
 }
 
 declare module 'payload' {
