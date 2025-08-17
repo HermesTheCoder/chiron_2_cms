@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -14,6 +15,15 @@ const navItems = [
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  // Check if a nav item is active
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return pathname === path;
+    }
+    return pathname?.startsWith(path);
+  };
 
   // Prevent body scrolling when mobile menu is open
   useEffect(() => {
@@ -48,7 +58,7 @@ export default function Header() {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     } else {
       // If we're not on a page with a contact section, navigate to the contact page
-      window.location.href = '/contact';
+      window.location.href = '/#contact-section';
     }
   };
 
@@ -80,14 +90,14 @@ export default function Header() {
                 transition-colors duration-200
               `}
             >
-              <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
+              <span className={`relative z-10 ${isActive(item.href) ? 'text-primary' : 'group-hover:text-primary'} transition-colors duration-300`}>
                 {item.label}
               </span>
-              <span className="absolute left-0 bottom-0 w-0 h-0.5 bg-primary shadow-glow transition-all duration-300 group-hover:w-full"></span>
+              <span className={`absolute left-0 bottom-0 h-0.5 transition-all duration-300 ${isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'} ${scrolled ? 'bg-black' : 'bg-white'}`}></span>
             </Link>
           ))}
-          <a 
-            href="#contact-section" 
+          <Link 
+            href="/#contact-section" 
             onClick={handleContactClick}
             className={`
               btn btn-primary py-3 px-8 text-base tracking-wide shadow-md
@@ -95,7 +105,7 @@ export default function Header() {
             `}
           >
             Get In Touch
-          </a>
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -136,13 +146,13 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-2xl font-medium text-foreground relative group overflow-hidden"
+                  className={`text-2xl font-medium relative group overflow-hidden ${isActive(item.href) ? 'text-primary' : 'text-foreground'}`}
                   onClick={() => setIsOpen(false)}
                 >
                   <span className="relative z-10 group-hover:text-primary transition-colors duration-300">
                     {item.label}
                   </span>
-                  <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-primary transition-all duration-300 ease-out group-hover:w-full"></span>
+                  <span className={`absolute bottom-0 left-0 h-[2px] bg-black transition-all duration-300 ease-out ${isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </Link>
               ))}
               <a 

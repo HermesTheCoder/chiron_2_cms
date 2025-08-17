@@ -186,6 +186,12 @@ const About: CollectionConfig = {
               type: 'array',
               fields: [
                 {
+                  name: 'iconBackgroundColor',
+                  label: 'Icon Background Color',
+                  type: 'text',
+                  required: true, 
+                },
+                {
                   name: 'icon',
                   label: 'Icon Image',
                   type: 'upload',

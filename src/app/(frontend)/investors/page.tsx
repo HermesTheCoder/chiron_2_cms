@@ -104,9 +104,8 @@ export default async function InvestorsPage() {
                       <svg className="w-6 h-6 text-primary mr-2 flex-shrink-0 mt-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                      <span className="text-text-light flex gap-2 items-start">
-                        <strong className="text-gray-900 w-36 shrink-0">{point?.title}</strong>:
-                        <RichText data={point?.description} />
+                      <span className="text-text-light">
+                        <strong className="text-gray-900">{point?.title}:</strong> {point?.description}
                       </span>
                     </li>
                     ))}
@@ -355,9 +354,13 @@ export default async function InvestorsPage() {
                     <div className={`absolute inset-0 bg-cover bg-center`} style={{ backgroundImage: `url(${card?.image?.url})` }}></div>
                     <div className="relative z-10">
                       <div className="w-14 h-14 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4">
-                        <svg className="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+                        {card?.icon?.url && <Image
+                          src={card?.icon?.url}
+                          alt={card?.icon?.alt}
+                          fill
+                          className="object-contain p-4"
+                        />}
+
                       </div>
                       <h3 className="text-2xl font-bold text-white">{card?.title}</h3>
                     </div>

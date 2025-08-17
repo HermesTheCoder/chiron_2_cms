@@ -113,7 +113,7 @@ const Investors: CollectionConfig = {
                 {
                   name: "description",
                   label: "Description",
-                  type: "richText",
+                  type: "text",
                   required: true,
                 },
               ],

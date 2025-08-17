@@ -81,7 +81,7 @@ export default function MissionSection({data}: MissionSectionProps) {
                   <div className="flex flex-col h-full">
                     <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                       { missionValue?.image?.url &&
-                        <Image src={missionValue?.image?.url ?? ""} alt={missionValue?.image?.alt} />}
+                        <img src={missionValue?.image?.url ?? ""} alt={missionValue?.image?.alt} />}
                     </div>
                     <h3 className="text-lg font-medium mb-3">{missionValue?.title}</h3>
                     <div className="text-text-light">
