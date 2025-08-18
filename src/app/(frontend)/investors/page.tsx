@@ -214,15 +214,15 @@ export default async function InvestorsPage() {
                 {
                   marketAnalysis?.secondaryCard?.map((card, cardIdx) => (
                     <div key={cardIdx} className="bg-white p-6 rounded-xl shadow-md">
-                      <h3 className="text-xl font-bold mb-4 flex items-center">
-                        <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                        </svg>
+                      <h3 className="text-xl font-bold mb-4 flex gap-2 items-center">
+                        {card?.icon?.url && <img 
+                        src={card?.icon?.url} 
+                        alt={card?.icon?.alt} />}
                         {card?.title}
                       </h3>
                       <ul className="space-y-3">
                         {card.point?.map((point, pointIdx) => (
-                          <li key={`card-${cardIdx}-feature-${pointIdx}`} className="flex items-start">
+                          <li key={`card-${cardIdx}-feature-${pointIdx}`} className="flex gap-2 items-start">
                             <svg className="w-5 h-5 text-primary mr-2 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                             </svg>
@@ -255,10 +255,10 @@ export default async function InvestorsPage() {
             </div>
             
             <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-center auto-rows-fr">
                 {/* Charts - Tech & Innovation*/}
                 {technologyAndInnovation?.card?.map((card, idx) => (
-                  <div key={idx} className="bg-white rounded-xl shadow-lg p-8">
+                  <div key={idx} className="bg-white rounded-xl shadow-lg p-8 h-full">
                   <h3 className="text-2xl font-bold mb-4">{card?.title}</h3>
                   <div className="text-text-light mb-6">
                     <RichText data={card?.description} />
@@ -287,10 +287,8 @@ export default async function InvestorsPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                     {technologyAndInnovation?.card2?.features?.map((feature, idx) => (
                       <div key={idx} className="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-md">
-                      <h4 className="font-bold text-lg mb-3 flex items-center">
-                        <svg className="w-5 h-5 text-primary mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
+                      <h4 className="font-bold text-lg mb-3 flex gap-2 items-center">
+                        {feature?.icon?.url && <img src={feature?.icon?.url} alt={feature?.icon?.alt} />}
                         {feature?.title}
                       </h4>
                       <div className="text-text-light">
@@ -304,15 +302,17 @@ export default async function InvestorsPage() {
               
               {/* Strategic Collaboration with Corning */}
               <div className="bg-white rounded-xl shadow-xl p-8">
-                <div className="flex flex-col md:flex-row items-center mb-6">
-                  <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mb-4 md:mb-0 md:mr-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
+                <div className="flex flex-col items-center mb-8">
+                  <div className="w-48 h-16 relative mb-6">
+                    <Image 
+                      src="/assets/Corning_logo.png"
+                      alt="Corning logo"
+                      fill
+                      objectFit="contain"
+                      priority
+                    />
                   </div>
-                  <div>
                     <h3 className="text-2xl font-bold">{corning?.title}</h3>
-                  </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -446,13 +446,6 @@ export default async function InvestorsPage() {
                   </div>
                 </div>
                 ))}
-              </div>
-              
-              {/* Mobile Timeline Indicator */}
-              <div className="flex justify-between text-xs md:hidden text-text-light mb-6 px-2">
-                <div>{growthPath?.mobileTimeline?.current}</div>
-                <div>{growthPath?.mobileTimeline?.year1}</div>
-                <div>{growthPath?.mobileTimeline?.year2}</div>
               </div>
               
               {/* CTA */}

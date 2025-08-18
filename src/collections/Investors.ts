@@ -550,32 +550,6 @@ const Investors: CollectionConfig = {
             },
           ],
         },
-        {
-          name: "mobileTimeline",
-          label: "Mobile Timeline",
-          type: "group",
-          required: true,
-          fields: [
-            {
-              name: "current",
-              label: "Current",
-              type: "text",
-              required: true,
-            },
-            {
-              name: "year1",
-              label: "Year 1",
-              type: "text",
-              required: true,
-            },
-            {
-              name: "year2",
-              label: "Year 2",
-              type: "text",
-              required: true,
-            },
-          ]
-        }
       ],
     },
     {

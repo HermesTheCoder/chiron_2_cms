@@ -55,7 +55,7 @@ export default function Footer() {
                 footerData?.socialMediasData?.map((socialMedia, idx) => (
                   <a 
                     key={idx}
-                    href={socialMedia?.socialMediaURL} 
+                    href={socialMedia?.link} 
                     className="w-10 h-10 rounded-full flex items-center justify-center bg-white/10 text-white hover:bg-primary hover:text-white transition-colors backdrop-blur-sm"
                   >
                     {socialMedia?.icon?.url && <img src={socialMedia?.icon?.url} alt={socialMedia?.icon?.alt} />}
@@ -71,7 +71,7 @@ export default function Footer() {
           {/* Link Groups */}
           <div className="md:col-span-3 lg:col-span-3 md:ml-auto">
             
-                <h3 className="text-lg font-bold mb-5 text-white">Contact</h3>
+                <h3 className="text-lg font-bold mb-5 text-white">Company</h3>
                 <ul className="space-y-3">
                   {footerData?.footerLinks
                     ?.filter((footerLink) => footerLink?.link) 

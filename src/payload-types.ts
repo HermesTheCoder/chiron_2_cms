@@ -570,7 +570,7 @@ export interface Footer {
   };
   socialMediasData: {
     icon: Media;
-    socialMediaURL: string;
+    link: string;
   }[];
 }
 
