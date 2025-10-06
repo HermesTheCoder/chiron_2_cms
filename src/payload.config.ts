@@ -8,6 +8,7 @@ import sharp from "sharp";
 import { Users } from "./collections/Users.ts";
 import { Media } from "./collections/Media.ts";
 import Therapies from "./collections/Therapies.ts";
+import ExosomeSkincare from "./collections/ExosomeSkincare.ts";
 import About from "./collections/About.ts";
 import Home from "./collections/Home.ts";
 import LeadershipTeam from "./globals/LeadershipTeam.ts";
@@ -25,7 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Therapies, About, Home, Investors],
+  collections: [Users, Media, Therapies, ExosomeSkincare, About, Home, Investors],
   globals: [LeadershipTeam, Footer],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",

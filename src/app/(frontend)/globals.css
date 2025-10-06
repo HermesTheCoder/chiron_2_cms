@@ -110,6 +110,10 @@ h1, h2, h3, h4, h5, h6 {
   animation: slideUp 0.8s ease-out forwards;
 }
 
+.animate-spin-slow {
+  animation: spinSlow 20s linear infinite;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -127,6 +131,15 @@ h1, h2, h3, h4, h5, h6 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
