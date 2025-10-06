@@ -84,7 +84,7 @@ export default function ExosomeSkincarePage() {
                       Get Started
                     </Button>
                     <Button href="/about" variant="outline" size="lg">
-                      Learn More
+                    About Our Research
                     </Button>
                   </div>
                 </div>
@@ -144,10 +144,10 @@ export default function ExosomeSkincarePage() {
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4 mt-8">
                     <Button href="/#contact-section" size="lg">
-                      Contact Us
+                      Get Started
                     </Button>
-                    <Button href="/therapies" variant="outline" size="lg">
-                      View Therapies
+                    <Button href="/about" variant="outline" size="lg">
+                      About Our Research
                     </Button>
                   </div>
                 </div>
@@ -220,7 +220,7 @@ export default function ExosomeSkincarePage() {
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-6">
                 <Button href="/#contact-section" size="lg">Contact Us</Button>
-                <Button href="/therapies" variant="outline" size="lg">View All Therapies</Button>
+                <Button href="/about" variant="outline" size="lg">Learn About Our Company</Button>
               </div>
             </div>
           </div>
