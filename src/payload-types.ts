@@ -340,14 +340,6 @@ export interface Therapies {
   ourApproach: {
     title: string;
     description: SerializedEditorState;
-    primaryCTA: {
-      text: string;
-      link: string;
-    };
-    secondaryCTA: {
-      text: string;
-      link: string;
-    };
   };
   therapies: {
     title: string
@@ -363,6 +355,7 @@ export interface Therapies {
     image1: Media;
     image2: Media;
     caption: string;
+    linkedButtonText: string;
   }[];
 }
 export interface About {
@@ -406,6 +399,74 @@ export interface About {
     };
     closingText: string;
   };
+  exosomeSkincareSection: {
+    title: string;
+    subtitle: string;
+    heading: string;
+    description: SerializedEditorState;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+    cards: {
+      title: string;
+      description: SerializedEditorState;
+      text: string;
+      link: string;
+    }[];
+
+  }
+}
+export interface CosmeticsPage {
+  banner: {
+    title: string;
+    subtitle: string;
+    backgroundImage: Media;
+  };
+  introduction: {
+    title: string;
+    subtitle: string;
+    description: SerializedEditorState;
+  };
+  exosomePoweredTherapiesSection: {
+    title: string;
+    description: SerializedEditorState;
+    image: Media;
+    imageCaption: string;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+  }[];
+  benefitsSection: {
+    subtitle: string;
+    title: string;
+    benefits: {
+      title: string;
+      description: SerializedEditorState;
+      icon: Media;
+    }[];
+  }
+  ctaSection: {
+    title: string;
+    description: string;
+    primaryCTA: {
+      text: string;
+      link: string;
+    };
+    secondaryCTA: {
+      text: string;
+      link: string;
+    };
+  }
 }
 export interface LeadershipTeam {
   leadershipTeam: {

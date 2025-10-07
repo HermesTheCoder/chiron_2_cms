@@ -19,6 +19,7 @@ export default async function AboutPage() {
   const json = await res.json();
   const aboutPage: About = json?.docs?.[0];
   const banner = aboutPage?.banner;
+  const exosomeSkincareSection = aboutPage?.exosomeSkincareSection;
   return (
     <>
       <Header />
@@ -60,59 +61,54 @@ export default async function AboutPage() {
           <div className="container">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Revolutionary Cosmetics & Skincare</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                  {exosomeSkincareSection?.title}
+                  </h2>
                 <p className="text-xl text-text-light max-w-3xl mx-auto">
-                  Discover our cutting-edge exosome-powered skincare solutions that go beyond traditional cosmetics
+                  {exosomeSkincareSection?.subtitle}
                 </p>
               </div>
               
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div>
-                  <h3 className="text-2xl md:text-3xl font-bold mb-6">Exosome-Powered Skincare & Rejuvenation</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-6">
+                    {exosomeSkincareSection?.heading}
+                    </h3>
                   <div className="text-lg text-text-light mb-6 space-y-4">
-                    <p>
-                      Unlike traditional cosmetic ingredients that only act on the skin's surface, our MSC-derived exosomes penetrate deeply into the skin, delivering powerful regenerative signals that awaken the body's own repair mechanisms.
-                    </p>
-                    <p>
-                      Experience next-generation solutions for skin rejuvenation where science, safety, and efficacy meet to unlock the skin's natural ability to heal, renew, and thrive.
-                    </p>
+                    <div>
+                      <RichText data={exosomeSkincareSection?.description} />
+                    </div>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <a 
-                      href="/cosmetics" 
+                      href={exosomeSkincareSection?.primaryCTA?.link}
                       className="btn btn-primary py-3 px-8 text-base tracking-wide shadow-md transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px] hover:scale-[1.02]"
                     >
-                      Explore Cosmetics
+                      {exosomeSkincareSection?.primaryCTA?.text}
                     </a>
                     <a 
-                      href="/cosmetics#skin-care-rejuvenation" 
+                      href={exosomeSkincareSection?.secondaryCTA?.link}
                       className="btn btn-outline py-3 px-8 text-base tracking-wide transition-all duration-300 hover:bg-red-50"
                     >
-                      Learn About Skincare
+                       {exosomeSkincareSection?.secondaryCTA?.text}
                     </a>
                   </div>
                 </div>
                 
                 <div className="space-y-6">
-                  <div className="bg-white p-6 rounded-xl shadow-md">
-                    <h4 className="text-xl font-bold mb-3 text-primary">Skin Care & Rejuvenation</h4>
-                    <p className="text-text-light mb-4">
-                      MSC-derived exosomes rejuvenate skin at the cellular level, reducing wrinkles and enhancing hydration for sustained youthful radiance.
-                    </p>
-                    <a href="/cosmetics#skin-care-rejuvenation" className="text-primary font-medium hover:underline">
-                      Learn More →
-                    </a>
-                  </div>
-                  
-                  <div className="bg-white p-6 rounded-xl shadow-md">
-                    <h4 className="text-xl font-bold mb-3 text-primary">Advanced Wound Care</h4>
-                    <p className="text-text-light mb-4">
-                      Exosomes accelerate healing of chronic wounds, diabetic ulcers, and post-surgical scars through powerful regenerative properties.
-                    </p>
-                    <a href="/cosmetics#advanced-wound-care" className="text-primary font-medium hover:underline">
-                      Learn More →
-                    </a>
-                  </div>
+                  {
+                    exosomeSkincareSection?.cards?.map((card, idx:number) => (
+                      <div key={idx} className="bg-white p-6 rounded-xl shadow-md">
+                        <h4 className="text-xl font-bold mb-3 text-primary">{card?.title}</h4>
+                        <div className="text-text-light mb-4">
+                          <RichText data={card?.description} />
+                        </div>
+                        <a href={card?.link} className="text-primary font-medium hover:underline">
+                          {card?.text}
+                        </a>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
             </div>
