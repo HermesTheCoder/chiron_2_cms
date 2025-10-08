@@ -222,6 +222,108 @@ const About: CollectionConfig = {
         },
       ],
     },
+    {
+      name: 'exosomeSkincareSection',
+      label: 'Exosome Skincare Section',
+      type: "group",
+      required: true,
+      fields: [
+        {
+          name: "title",
+          label: "Title",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "subtitle",
+          label: "Subtitle",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "heading",
+          label: "Heading",
+          type: "text",
+          required: true,
+        },
+        {
+          name: "description",
+          label: "Description",
+          type: "richText",
+          required: true,
+        },
+        {
+          name: "primaryCTA",
+          label: "Primary CTA",
+          type: "group",
+          required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
+        },
+        {
+          name: "secondaryCTA",
+          label: "Secondary CTA",
+          type: "group",
+          required: true,
+          fields: [
+            {
+              name: "text",
+              label: "CTA Text",
+              type: "text",
+              required: true
+            },
+            {
+              name: "link",
+              label: "CTA Link",
+              type: "text",
+            },
+          ]
+        },
+        {
+          name: "cards",
+          label: "Card",
+          type: "array",
+          required: true,
+          fields: [
+            {
+              name: "title",
+              label: "title",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "description",
+              label: "Description",
+              type: "richText",
+              required: true,
+            },
+            {
+              name: "text",
+              label: "Redirection Text",
+              type: "text",
+              required: true,
+            },
+            {
+              name: "link",
+              label: "Link",
+              type: "text",
+              required: true,
+            }
+          ],
+        },
+      ],
+    },
   ],
 };
 
