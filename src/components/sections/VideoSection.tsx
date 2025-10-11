@@ -48,7 +48,7 @@ export default function VideoSection({ data }: VideoSectionProps) {
     title: "Discover Chiron Therapeutics",
     subtitle: "OUR STORY",
     description: "Watch our company overview to learn about our revolutionary stem cell technology and our mission to transform regenerative medicine.",
-    // videoUrl: "/media/ChironPromo.mp4",
+    // videoUrl: "/assets/Chiron_Therapeutics_SIST.mp4",
     primaryCTA: {
       text: "Learn More",
       link: "/about"
@@ -91,6 +91,7 @@ export default function VideoSection({ data }: VideoSectionProps) {
               <video
                 className="w-full aspect-video object-cover"
                 controls
+                poster='/assets/VideoThumbnail.jpg'
                 preload="metadata"
               >
                 <source src={videoData.videoUrl} type="video/mp4" />
