@@ -15,7 +15,7 @@
     "@payloadcms/payload-cloud": "^3.50.0",
     "@payloadcms/richtext-lexical": "^3.50.0",
     "@payloadcms/storage-vercel-blob": "^3.50.0",
-    "@types/nodemailer": "^6.4.17",
+    "@types/nodemailer": "^6.4.20",
     "cross-env": "^10.0.0",
     "graphql": "^16.11.0",
     "next": "15.3.0",

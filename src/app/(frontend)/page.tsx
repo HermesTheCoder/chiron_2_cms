@@ -1,6 +1,7 @@
 import Header from "@/components/ui/Header";
 import Hero from "@/components/ui/Hero";
 import Footer from "@/components/ui/Footer";
+import VideoSection from "@/components/sections/VideoSection";
 import TherapiesSection from "@/components/sections/TherapiesSection";
 import AdvantagesSection from "@/components/sections/AdvantagesSection";
 import ContactSection from "@/components/sections/ContactSection";
@@ -17,6 +18,10 @@ export default async function Home() {
       <Header />
       <main className="min-h-screen">
         <Hero data={homePage?.banner}/>
+        
+        {/* Video Section */}
+        <VideoSection />
+        
         <AdvantagesSection data={homePage?.advantages} />
         
         {/* Original Therapies Section */}

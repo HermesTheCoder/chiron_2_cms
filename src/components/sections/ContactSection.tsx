@@ -108,7 +108,7 @@ export default function ContactSection() {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) return;
@@ -116,13 +116,36 @@ export default function ContactSection() {
     setIsSubmitting(true);
     setSubmitError(false);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const formData = {
+        name: formFields.find(f => f.id === 'name')?.value || '',
+        email: formFields.find(f => f.id === 'email')?.value || '',
+        subject: formFields.find(f => f.id === 'subject')?.value || '',
+        message: formFields.find(f => f.id === 'message')?.value || ''
+      };
+
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.details || 'Failed to send message');
+      }
+
       setSubmitSuccess(true);
       // Reset form after successful submission
       setFormFields(formFields.map(field => ({ ...field, value: '' })));
-    }, 1500);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (

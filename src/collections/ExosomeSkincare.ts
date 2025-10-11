@@ -94,6 +94,12 @@ const ExosomeSkincare: CollectionConfig = {
           required: true,
         },
         {
+          name: "linkedButtonText",
+          label: "Linked Button Text",
+            type: "text",
+            required: true,
+        },
+        {
           name: "primaryCTA",
           label: "Primary CTA",
           type: "group",

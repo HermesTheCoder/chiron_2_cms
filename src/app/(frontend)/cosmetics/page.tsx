@@ -48,7 +48,7 @@ export default async function ExosomeSkincarePage() {
                 style={{ objectFit: "cover", objectPosition: "center" }}
                 priority
                 quality={90}
-                className="filter blur-[2px] scale-105 brightness-[0.7] animate-spin-slow"
+                className="filter blur-[2px] scale-105 brightness-[0.7]"
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/60 backdrop-blur-sm"></div>
@@ -82,14 +82,24 @@ export default async function ExosomeSkincarePage() {
                   </div>
                 </div>
               </div>
+              <div className="flex justify-center">
+                {exosomePoweredTherapiesSection?.map((therapy, idx: number) => (
+                  <Button
+                    key={idx}
+                    href={"#" + toId(therapy?.linkedButtonText)}
+                    variant="outline"
+                    className="mr-4 last:mr-0"
+                  >
+                    {therapy?.title}
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        
-
         {exosomePoweredTherapiesSection.map((therapy, idx:number) => (
-          <section key={idx} id={toId(therapy?.title)} className={`py-16 md:py-24 ${idx%2===1 ? 'bg-white' : 'bg-gray-50'}`}>
+          <section key={idx} id={toId(therapy?.linkedButtonText)} className={`py-16 md:py-24 ${idx%2===1 ? 'bg-white' : 'bg-gray-50'}`}>
             <div className="container">
               <div className="max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -182,6 +192,66 @@ export default async function ExosomeSkincarePage() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+                {/* Redefining Skin Health Section */}
+                <section className="py-16 md:py-24 bg-gray-50">
+          <div className="container">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900">
+                  Redefining Skin Health
+                </h2>
+                <p className="text-lg text-text-light max-w-4xl mx-auto">
+                  With MSC-derived exosomes from Chiron Therapeutics, skincare moves beyond surface-level cosmetics to a truly regenerative approach.
+                  Our vision is to deliver next-generation solutions for skin rejuvenation—where science, safety, and efficacy meet to unlock the skin's
+                  natural ability to heal, renew, and thrive.
+                </p>
+              </div>
+              
+              {/* Two cards side by side */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Science Meets Beauty Card */}
+                <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                      Science Meets Beauty
+                    </h3>
+                  </div>
+                  <p className="text-text-light leading-relaxed">
+                    Chiron Therapeutics is committed to advancing exosome-based cosmetics
+                    that are not only effective but biologically meaningful. Explore our pipelines
+                    and discover how cellular science can elevate your skincare and wound care
+                    experience.
+                  </p>
+                </div>
+                
+                {/* Healing Meets Innovation Card */}
+                <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <div className="text-center mb-6">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center">
+                      <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900">
+                      Healing Meets Innovation
+                    </h3>
+                  </div>
+                  <p className="text-text-light leading-relaxed">
+                    Our cutting-edge exosome technology harnesses the power of mesenchymal stem cells
+                    to deliver regenerative signals directly to skin cells, promoting natural healing
+                    and rejuvenation at the cellular level.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
