@@ -90,7 +90,7 @@ export default async function ExosomeSkincarePage() {
                     variant="outline"
                     className="mr-4 last:mr-0"
                   >
-                    {therapy?.title}
+                    {therapy?.linkedButtonText}
                   </Button>
                 ))}
               </div>
