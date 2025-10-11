@@ -275,7 +275,7 @@ export default async function ExosomeSkincarePage() {
                 )}
                 {ctaSection?.secondaryCTA?.text && (
                   <Button
-                    href={ctaSection?.secondaryCTA?.text}
+                    href={ctaSection?.secondaryCTA?.link}
                     variant="outline"
                     size="lg"
                   >
