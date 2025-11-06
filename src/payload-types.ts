@@ -310,6 +310,28 @@ export interface Home {
       link: string;
     };
   };
+  ourStorySection: {
+    title: string;
+    subtitle: string;
+    description: SerializedEditorState;
+    videoSection: {
+      title: string;
+      description: SerializedEditorState;
+      primaryCTA: {
+        text: string;
+        link: string;
+      };
+      secondaryCTA: {
+        text: string;
+        link: string;
+      };
+    };
+    cards: {
+      icon: Media;
+      title: string;
+      description: SerializedEditorState;
+    }[];
+  };
   advantages: {
     title: string;
     description: SerializedEditorState;

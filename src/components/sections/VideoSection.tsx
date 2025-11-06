@@ -3,22 +3,32 @@
 import { useState, useEffect } from 'react';
 import SectionTitle from '../ui/SectionTitle';
 import Button from '../ui/Button';
-
+import { SerializedEditorState } from 'lexical';
+import { Media } from '@/payload-types';
+import { RichText } from '@payloadcms/richtext-lexical/react';
 interface VideoSectionProps {
-  data?: {
-    title?: string;
-    subtitle?: string;
-    description?: string;
-    videoUrl?: string;
-    primaryCTA?: {
-      text: string;
-      link: string;
+  data: {
+      title: string;
+      subtitle: string;
+      description: SerializedEditorState;
+      videoSection: {
+        title: string;
+        description: SerializedEditorState;
+        primaryCTA: {
+          text: string;
+          link: string;
+        };
+        secondaryCTA: {
+          text: string;
+          link: string;
+        };
+      };
+      cards: {
+        icon: Media;  
+        title: string;
+        description: SerializedEditorState;
+      }[];
     };
-    secondaryCTA?: {
-      text: string;
-      link: string;
-    };
-  };
 }
 
 export default function VideoSection({ data }: VideoSectionProps) {
@@ -45,18 +55,7 @@ export default function VideoSection({ data }: VideoSectionProps) {
 
   // Default data if not provided
   const defaultData = {
-    title: "Discover Chiron Therapeutics",
-    subtitle: "OUR STORY",
-    description: "Watch our company overview to learn about our revolutionary stem cell technology and our mission to transform regenerative medicine.",
     videoUrl: "/assets/Chiron_Therapeutics_SIST.mp4",
-    primaryCTA: {
-      text: "Learn More",
-      link: "/about"
-    },
-    secondaryCTA: {
-      text: "Our Technology",
-      link: "/therapies"
-    }
   };
 
   const videoData = { ...defaultData, ...data };
@@ -79,9 +78,9 @@ export default function VideoSection({ data }: VideoSectionProps) {
               accent={true}
             />
             <div className="max-w-3xl mx-auto mt-6">
-              <p className="text-lg text-text-light leading-relaxed">
-                {videoData.description}
-              </p>
+              {videoData?.description && <div className="text-lg text-text-light leading-relaxed">
+                <RichText data={videoData?.description} />
+              </div>}
             </div>
           </div>
 
@@ -101,30 +100,30 @@ export default function VideoSection({ data }: VideoSectionProps) {
             
             {/* Video Description */}
             <div className="mt-8 text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Company Overview
-              </h3>
-              <p className="text-lg text-text-light mb-8 max-w-3xl mx-auto">
-                Learn about our mission, technology, and vision for the future of regenerative medicine.
-              </p>
+              {videoData?.videoSection?.title && <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                {videoData.videoSection.title}
+              </h3>}
+              {videoData?.videoSection?.description && <div className="text-lg text-text-light mb-8 max-w-3xl mx-auto">
+                <RichText data={videoData.videoSection.description} />
+              </div>}
               
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                {videoData.primaryCTA?.link && (
+                {videoData?.videoSection?.primaryCTA?.link && (
                   <Button 
-                    href={videoData.primaryCTA.link}
+                    href={videoData.videoSection.primaryCTA.link}
                     size="lg"
                   >
-                    {videoData.primaryCTA.text}
+                    {videoData?.videoSection?.primaryCTA?.text}
                   </Button>
                 )}
-                {videoData.secondaryCTA?.link && (
+                {videoData?.videoSection?.secondaryCTA?.link && (
                   <Button 
-                    href={videoData.secondaryCTA.link}
+                    href={videoData.videoSection.secondaryCTA.link}
                     variant="outline"
                     size="lg"
                   >
-                    {videoData.secondaryCTA.text}
+                    {videoData?.videoSection?.secondaryCTA?.text}
                   </Button>
                 )}
               </div>
@@ -132,43 +131,21 @@ export default function VideoSection({ data }: VideoSectionProps) {
           </div>
 
           {/* Additional Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            <div className="text-center p-6 bg-gray-50 rounded-xl">
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+          {
+            videoData?.cards && videoData.cards.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                {videoData.cards.map((card, index) => (
+                  <div key={index} className="text-center p-6 bg-gray-50 rounded-xl">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                      {card?.icon?.url && <img src={card.icon.url} alt={card.icon?.alt} />}
+                    </div>
+                    {card?.title && <h4 className="text-lg font-bold mb-2">{card.title}</h4>}
+                    {card?.description && <div className="text-text-light text-sm"><RichText data={card.description} /></div>}
+                  </div>
+                ))}
               </div>
-              <h4 className="text-lg font-bold mb-2">Innovative Technology</h4>
-              <p className="text-text-light text-sm">
-                Our SIST technology revolutionizes stem cell therapy delivery
-              </p>
-            </div>
-
-            <div className="text-center p-6 bg-gray-50 rounded-xl">
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <h4 className="text-lg font-bold mb-2">Proven Results</h4>
-              <p className="text-text-light text-sm">
-                Clinical trials show significant improvements in patient outcomes
-              </p>
-            </div>
-
-            <div className="text-center p-6 bg-gray-50 rounded-xl">
-              <div className="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-              </div>
-              <h4 className="text-lg font-bold mb-2">Expert Team</h4>
-              <p className="text-text-light text-sm">
-                Leading scientists and researchers driving innovation
-              </p>
-            </div>
-          </div>
+            )
+          }
         </div>
       </div>
     </section>
