@@ -20,7 +20,7 @@ export default async function Home() {
         <Hero data={homePage?.banner}/>
         
         {/* Video Section */}
-        <VideoSection />
+        <VideoSection data={homePage?.ourStorySection} />
         
         <AdvantagesSection data={homePage?.advantages} />
         
